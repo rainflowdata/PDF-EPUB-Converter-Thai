@@ -581,7 +581,7 @@ async function translateChunk(text,key,style,customPrompt){
   }else{
     var r=await fetch('https://api.opentyphoon.ai/v1/chat/completions',{
       method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
-      body:JSON.stringify({model:'typhoon-v2-70b-instruct',messages:[{role:'user',content:prompt}],max_tokens:maxTok,temperature:0.3})
+      body:JSON.stringify({model:'typhoon-v2.5-30b-a3b-instruct',messages:[{role:'user',content:prompt}],max_tokens:maxTok,temperature:0.3})
     });
     if(!r.ok){var eb='';try{eb=await r.text()}catch(x){}var err=new Error('API '+r.status+(eb?': '+eb.substring(0,200):''));err.httpStatus=r.status;throw err}
     var json=await r.json();
