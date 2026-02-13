@@ -1,14 +1,23 @@
-# 📘 Bepub — PDF to EPUB Converter (Thai)
+# 📘 Bepub — PDF to EPUB Converter & AI Book Translator
 
-แปลง PDF เป็น EPUB ด้วย Typhoon OCR / Gemini Flash — รองรับภาษาไทย ทำงานในเบราว์เซอร์ ไม่ต้องติดตั้ง
+แปลง PDF เป็น EPUB ด้วย Typhoon OCR / Gemini Flash + แปลหนังสือ AI (EN↔TH) — ทำงานในเบราว์เซอร์ ไม่ต้องติดตั้ง
 
-เข้าใช้ได้ที่: 
-# [https://github.com/orapina/PDF-EPUB-Converter-Thai](https://orapina.github.io/PDF-EPUB-Converter-Thai/)
+🔗 **เข้าใช้ได้ที่:** [https://rainflowdata.github.io/PDF-EPUB-Converter-Thai](https://rainflowdata.github.io/PDF-EPUB-Converter-Thai/)
 
 ![Client-Side](https://img.shields.io/badge/Client--Side-JavaScript-yellow)
 ![Thai OCR](https://img.shields.io/badge/Thai%20OCR-Typhoon-blue)
 ![Gemini](https://img.shields.io/badge/Gemini-Flash-orange)
+![PWA](https://img.shields.io/badge/PWA-Offline-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+---
+
+## 📱 2 หน้าหลัก
+
+| หน้า | ไฟล์ | คำอธิบาย |
+|------|------|----------|
+| **📘 OCR Converter** | `index.html` | แปลง PDF → EPUB ด้วย OCR (Typhoon/Gemini) |
+| **🌐 AI Translate** | `translate.html` | แปลหนังสือ PDF/EPUB (EN↔TH) ด้วย AI |
 
 ---
 
@@ -22,106 +31,133 @@
 - ทำงานบน Google Colab (ต้องรัน Python)
 
 ### Web Version: by rainflowData
-**rainflowData** นำไอเดียมาสร้างเป็น **เว็บแอปไฟล์เดียว** (`index.html`) ที่ทำงานได้ในเบราว์เซอร์โดยตรง ไม่ต้องติดตั้งอะไร และเพิ่มฟีเจอร์ใหม่ๆ มากมาย
+**rainflowData** นำไอเดียมาสร้างเป็น **เว็บแอป** ที่ทำงานได้ในเบราว์เซอร์โดยตรง ไม่ต้องติดตั้งอะไร และเพิ่มฟีเจอร์ใหม่ๆ มากมาย รวมถึงหน้าแปลหนังสือด้วย AI
 
 ---
 
-## ✨ ฟีเจอร์ที่เพิ่มจากต้นฉบับ
+## ✨ ฟีเจอร์ทั้งหมด
 
-### 🌐 สถาปัตยกรรมใหม่ — Client-Side Web App
-- **ไฟล์เดียว** `index.html` — ไม่ต้องติดตั้ง Python, ไม่ต้อง server
-- ทำงานในเบราว์เซอร์ 100% (PDF.js + JSZip + Typhoon OCR API)
-- **Deploy ง่าย** — อัปโหลด GitHub Pages ไฟล์เดียวจบ
-- **Mobile Ready** — ใช้งานบนมือถือได้
-- 🔒 ข้อมูลไม่ผ่านเซิร์ฟเวอร์ (ส่งเฉพาะภาพไปยัง Typhoon API)
+### 🌐 สถาปัตยกรรม — Client-Side Web App
+- ทำงานในเบราว์เซอร์ 100% (PDF.js + JSZip + AI API)
+- **PWA** — ติดตั้งเป็น app บนมือถือ/เดสก์ท็อปได้, ทำงาน offline
+- **Mobile Ready** — responsive ใช้งานบนมือถือได้
+- 🔒 ข้อมูลไม่ผ่านเซิร์ฟเวอร์ (ส่งเฉพาะไปยัง AI API)
 
-### 💎 Token Saver Mode (ประหยัด ~85%)
+### 📘 OCR Converter (index.html)
+
+#### 💎 Token Saver Mode (ประหยัด ~85%)
 โหมดประหยัด token สำหรับไฟล์ขนาดใหญ่:
-
-**หลักการ:** ก่อนส่งภาพไป OCR ทุกหน้า ระบบจะลองดึง text ที่ฝังอยู่ใน PDF ก่อน (text layer) ถ้าได้ text เพียงพอก็ใช้เลย ไม่ต้องเสีย token เรียก API — ส่ง OCR เฉพาะหน้าที่เป็นภาพสแกนจริงๆ
 
 **การทำงาน 3 ขั้นตอนต่อหน้า:**
 1. **ดึง text จาก PDF** → ถ้าได้ ≥30 ตัวอักษรจริง → ✅ ใช้เลย ฟรี!
 2. **ตรวจหน้าว่าง** → ถ้ามีแค่เลขหน้า/ช่องว่าง → ⏭️ ข้าม ไม่เสีย token
 3. **ส่ง OCR** → เฉพาะหน้าสแกน/หน้าที่ text น้อย → 🔍 OCR (optimized)
 
-**ขนาดภาพที่ส่ง API ก็ลดด้วย:**
 | | ปกติ | Token Saver |
 |---|---|---|
-| ขนาดภาพ | 1800px | 1000px |
-| รูปแบบ | PNG | JPEG 60% |
-| Prompt | ยาว (อธิบายละเอียด) | สั้น (3 บรรทัด) |
+| ขนาดภาพ | 1600px PNG | 800px JPEG 50% |
 | Max tokens | 16,384 | 4,096 |
 
-**ตัวอย่าง:** PDF 100 หน้า ถ้า 60 หน้ามี text layer + 10 หน้าว่าง → OCR แค่ 30 หน้า + ภาพเล็กลงครึ่งนึง = **ประหยัดจริง ~85%**
+#### ⚡ Parallel Processing
+- **Token Saver ON** → 5 หน้าพร้อมกัน
+- **Token Saver OFF** → 3 หน้าพร้อมกัน
 
-### ⚡ Parallel Processing
-- **Token Saver ON** → ประมวลผล 3 หน้าพร้อมกัน (~3x เร็วขึ้น)
-- **Token Saver OFF** → ประมวลผล 2 หน้าพร้อมกัน (~2x เร็วขึ้น)
-
-### 🤖 Multi-Provider OCR
-เลือกได้ 2 provider:
+#### 🤖 Multi-Provider OCR
 
 | | 🇹🇭 Typhoon OCR | ✨ Gemini Flash |
 |---|---|---|
-| ภาษาไทย | ⭐ เก่งมาก (ออกแบบมาเพื่อไทย) | ดี แต่อาจพลาดบ้าง |
-| ราคา | ตาม token ที่ใช้ | **ฟรี!** 15 RPM (requests/min) |
-| API Key | [opentyphoon.ai](https://opentyphoon.ai) | [aistudio.google.com](https://aistudio.google.com/apikey) |
+| ภาษาไทย | ⭐ เก่งมาก | ดี แต่อาจพลาดบ้าง |
+| ราคา | ตาม token | **ฟรี!** 15 RPM |
 | Model | `typhoon-ocr` | `gemini-2.0-flash` |
-| แนะนำ | PDF ไทย, ต้องการคุณภาพสูง | ทดลองฟรี, PDF ภาษาอังกฤษ |
 
-### 🛡️ Error Handling & Retry
-- **Exponential Backoff** — 429 (rate limit) retry อัตโนมัติ 3 ครั้ง
-- **Fatal Error Detection** — 401 (key ผิด), 402/403 (token หมด) หยุดทันที
+#### 🖼️ Smart Image Embed
+- ฝังภาพประกอบจริงใน EPUB (เฉพาะ PDF ดิจิทัลที่มีรูปจริง)
+- **ไม่ฝังหน้าสแกน** — ป้องกัน EPUB เป็นรูปแปะกระดาษ
+
+#### ✏️ Edit OCR Results
+- แก้ไขข้อความ OCR ทีละหน้าก่อนสร้าง EPUB
+- มีปุ่ม ◀ ▶ เลื่อนหน้า, บันทึกกลับ localStorage
+
+#### 🛡️ Error Handling & Retry
+- **Exponential Backoff** — 429 retry อัตโนมัติ 3 ครั้ง
+- **Fatal Error Detection** — 401/402/403 หยุดทันที
 - **Auto-stop** — error ติดกัน 3 ครั้ง → หยุดอัตโนมัติ
-- **Partial EPUB** — หยุดกลางคันก็สร้าง EPUB จากหน้าที่ได้
 
-### ▶️ Resume (ทำต่อจากที่หยุด)
-- กดหยุด / token หมด / error → ปุ่ม **"▶ ต่อจากหน้า X"** โผล่มา
-- กด Resume → ทำต่อจากตรงที่หยุด ต่อเนื้อหาเดิม
+#### ▶️ Resume & Recovery
+- กดหยุด → ปุ่ม **"▶ ต่อจากหน้า X"** โผล่มา
+- 💾 localStorage บันทึกอัตโนมัติ — ปิดเว็บกลับมาทำต่อได้
+- 📕 อัปโหลด EPUB เดิมเพื่อ resume ได้
+- 📥 กู้คืนจาก localStorage → สร้าง EPUB ได้โดยไม่ต้องมี PDF
 
-### 💾 localStorage — ปิดเว็บกลับมาทำต่อได้
-- บันทึก progress อัตโนมัติทุก batch
-- ปิดเว็บ → เปิดใหม่ → อัปโหลด PDF เดิม → ทำต่อจากที่ค้าง
-- ลบอัตโนมัติเมื่อทำเสร็จ / ค้างเกิน 24 ชม.
+#### 📊 Stats & Tracking
+- สถิติ: หน้าทั้งหมด / Text ฟรี / OCR / ข้าม / Tokens
+- 📈 Usage stats รวมทุกครั้ง (sessions, pages, tokens)
+- 💰 Cost estimate ก่อนเริ่ม
 
-### 📊 Stats Bar & Token Tracking
-- แสดงสถิติ: หน้าทั้งหมด / Text ฟรี / OCR / ข้าม
-- Token tracking: Tokens In / Out / Total จาก API response
+### 🌐 AI Translate (translate.html)
 
-### 🎨 UI/UX ที่ดีขึ้น
-- ออกแบบ responsive สวยงาม (Sarabun + Plus Jakarta Sans)
-- วิธีใช้งาน (Tutorial) แบบพับได้
-- Console Log สำหรับ debug
-- ตัวอย่างข้อความที่แปลงได้
-- ปกหนังสือ (Cover image)
-- สารบัญอัตโนมัติ + แก้ไข/เพิ่ม/ลบได้
-- Rebuild EPUB จากสารบัญที่แก้ไข
-- Drag & Drop อัปโหลด
+#### 📖 แปลหนังสือด้วย AI
+- รองรับ **PDF + EPUB** เป็น input
+- แปล **EN↔TH** สลับทิศทางได้
+- 4 สไตล์: ธรรมชาติ / เป็นทางการ / สร้างสรรค์ / ตรงตัว
+- Context overlap — แปลต่อเนื่องข้ามหน้า
+
+#### 🤖 AI Providers
+| | 🇹🇭 Typhoon V2 | ✨ Gemini Flash |
+|---|---|---|
+| Model | `typhoon-v2.5-30b-a3b-instruct` | `gemini-2.0-flash` |
+| ภาษาไทย | ⭐ เก่งมาก | ดี |
+| ราคา | ตาม token | ฟรี 15 RPM |
+
+#### 📖 Glossary (คลังศัพท์)
+- เพิ่ม/ลบคู่คำศัพท์ (เช่น "Hogwarts → ฮอกวอตส์")
+- บันทึกใน localStorage, inject เข้า prompt ทุกหน้าอัตโนมัติ
+
+#### 📖 EPUB Reader
+- อ่านผลแปลในเบราว์เซอร์เลยไม่ต้องดาวน์โหลด
+- Page navigation ◀ ▶
+
+#### ✏️ Edit Translated Text
+- คลิกข้อความแปลในช่อง "เปรียบเทียบ" → แก้ไขได้ทันที
+- บันทึกกลับ → สร้าง EPUB ใหม่ได้
+
+#### 💾 Resume & Recovery
+- บันทึกอัตโนมัติหลังแปลทุกหน้า
+- กู้คืน / แปลต่อ / Export-Import JSON backup
+- สารบัญตรวจจับอัตโนมัติ + แก้ไขได้
+
+### 🎨 ฟีเจอร์ร่วม (ทั้ง 2 หน้า)
+- 🌙 **Dark Mode** — สลับ Light/Dark ได้
+- 🌐 **i18n** — ภาษาไทย / English (OCR page)
+- 🔑 **Remember API Key** — จำ key ใน localStorage
+- 📄 **PDF Preview** — แสดง thumbnail หน้าแรก
+- 🔔 **Browser Notification** — แจ้งเตือนเมื่อเสร็จ
+- 🔊 **Sound Notification** — เสียง ding เมื่อเสร็จ
+- ⌨️ **Keyboard Shortcuts** — `Ctrl+Enter` = เริ่ม, `Escape` = หยุด/ปิด
+- 📈 **Usage Stats** — สถิติรวมทุกครั้ง
+- 📑 **สารบัญอัตโนมัติ** — ตรวจจับบท + แก้ไข/เพิ่ม/ลบ + rebuild EPUB
 
 ---
 
 ## 🚀 วิธีใช้งาน
 
 ### ออนไลน์ (GitHub Pages)
-1. สร้าง GitHub repo
-2. อัปโหลด `index.html` ไฟล์เดียว
-3. Settings → Pages → เลือก branch → Save
-4. เข้าเว็บ → ใช้งานได้เลย!
+เข้าเว็บ → ใช้งานได้เลย!
 
-### Offline (เปิดไฟล์ตรง)
-1. ดาวน์โหลด `index.html`
-2. เปิดในเบราว์เซอร์ (Chrome/Edge แนะนำ)
-3. ใช้งานได้ทันที
+### Offline
+1. ดาวน์โหลดทั้งโปรเจกต์
+2. เปิด `index.html` หรือ `translate.html` ในเบราว์เซอร์
+3. ใช้งานได้ทันที (ต้องมีเน็ตสำหรับ API เท่านั้น)
 
-### ขั้นตอนการแปลง
-1. **สมัคร API Key** — เลือกอย่างใดอย่างหนึ่ง:
-   - **Typhoon OCR**: [opentyphoon.ai](https://opentyphoon.ai) → Sign Up → Profile → API Keys
-   - **Gemini Flash** (ฟรี): [aistudio.google.com/apikey](https://aistudio.google.com/apikey) → Create API Key
-2. **อัปโหลด PDF** — ลากไฟล์มาวางหรือคลิกเลือก
-3. **เปิด Token Saver** (แนะนำ) — ประหยัด token ได้ ~85%
-4. **ใส่ API Key + กด "เริ่มแปลงไฟล์"**
-5. **ดาวน์โหลด** — ได้ EPUB + TXT
+### ขั้นตอน OCR Converter
+1. **สมัคร API Key** — [Typhoon](https://opentyphoon.ai) หรือ [Gemini](https://aistudio.google.com/apikey) (ฟรี)
+2. **อัปโหลด PDF** → เปิด Token Saver (แนะนำ)
+3. **กด "เริ่มแปลงไฟล์"** → ดาวน์โหลด EPUB + TXT
+
+### ขั้นตอน AI Translate
+1. **อัปโหลด PDF/EPUB** → เลือกทิศทาง EN↔TH
+2. **เลือกสไตล์** + เพิ่ม Glossary (ถ้าต้องการ)
+3. **กด "เริ่มแปล"** → อ่าน/แก้ไข/ดาวน์โหลด EPUB
 
 ---
 
@@ -131,9 +167,12 @@
 |------|-----------|
 | PDF อ่าน | [PDF.js](https://mozilla.github.io/pdf.js/) 3.11.174 |
 | EPUB สร้าง | [JSZip](https://stuk.github.io/jszip/) 3.10.1 |
-| OCR | [Typhoon OCR](https://opentyphoon.ai) + [Gemini Flash](https://aistudio.google.com/apikey) |
-| UI | Vanilla HTML/CSS/JS — ไฟล์เดียว |
+| OCR | [Typhoon OCR](https://opentyphoon.ai) `typhoon-ocr` |
+| Translation | [Typhoon V2](https://opentyphoon.ai) `typhoon-v2.5-30b-a3b-instruct` |
+| AI (ฟรี) | [Gemini Flash](https://aistudio.google.com/apikey) `gemini-2.0-flash` |
+| UI | Vanilla HTML/CSS/JS |
 | Font | Sarabun, Plus Jakarta Sans, JetBrains Mono |
+| PWA | Service Worker + manifest.json |
 
 ---
 
@@ -141,8 +180,13 @@
 
 ```
 epub_convert/
-├── index.html        ← เว็บแอปทั้งหมดอยู่ในไฟล์เดียว
-├── Bepub.ipynb       ← Colab notebook ต้นฉบับ (Ken Takahashi)
+├── index.html        ← 📘 OCR Converter
+├── translate.html    ← 🌐 AI Book Translator
+├── manifest.json     ← PWA manifest
+├── sw.js             ← Service Worker (offline caching)
+├── rainflow.png      ← Logo
+├── fix_epub.py       ← 🔧 Script ซ่อม EPUB ที่มีรูปฝังเกิน
+├── check_epub.py     ← 🔍 Script ตรวจสอบเนื้อหา EPUB
 └── README.md         ← ไฟล์นี้
 ```
 
@@ -153,14 +197,19 @@ epub_convert/
 | | Colab (ต้นฉบับ) | Web (เวอร์ชันนี้) |
 |---|---|---|
 | สภาพแวดล้อม | Google Colab (Python) | เบราว์เซอร์ |
-| ติดตั้ง | ต้อง pip install | ไม่ต้อง |
+| ติดตั้ง | ต้อง pip install | ไม่ต้อง (PWA) |
 | Token Saver | ❌ | ✅ ประหยัด ~85% |
-| Parallel | ❌ ทีละหน้า | ✅ 2-3 หน้าพร้อมกัน |
+| Parallel | ❌ ทีละหน้า | ✅ 3-5 หน้าพร้อมกัน |
 | Resume | ❌ | ✅ ปิดเว็บกลับมาต่อได้ |
 | Error Handling | พื้นฐาน | ✅ Retry + Auto-stop |
 | สารบัญ | ❌ | ✅ ตรวจจับ + แก้ไขได้ |
 | Cover | ❌ | ✅ ใส่ปกได้ |
-| Mobile | ❌ | ✅ Responsive |
+| แปลหนังสือ | ❌ | ✅ AI Translate EN↔TH |
+| Glossary | ❌ | ✅ คลังศัพท์ |
+| EPUB Reader | ❌ | ✅ อ่านในเบราว์เซอร์ |
+| Edit Text | ❌ | ✅ แก้ไขก่อนสร้าง EPUB |
+| Dark Mode | ❌ | ✅ |
+| Mobile | ❌ | ✅ Responsive + PWA |
 | Multi-Provider | ❌ Typhoon อย่างเดียว | ✅ Typhoon + Gemini Flash |
 
 ---
@@ -169,7 +218,8 @@ epub_convert/
 
 - **Ken Takahashi** — ไอเดียและ Colab ต้นฉบับ ([Facebook](https://www.facebook.com/groups/ebookreader/posts/25556985560668239) · [Colab](https://colab.research.google.com/drive/1lgmYkuEeSUlVDLpplXCnFIQdJP9YMWjw?usp=sharing))
 - **rainflowData** — Web adaptation + ฟีเจอร์เพิ่มเติมทั้งหมด
-- **Typhoon OCR** by [SCB 10X](https://opentyphoon.ai) — Thai OCR API
+- **Typhoon** by [SCB 10X](https://opentyphoon.ai) — Thai OCR & Translation API
+- **Gemini Flash** by [Google](https://aistudio.google.com/apikey) — Free AI API
 - แชร์ใน [ชุมชนนักอ่าน eBook](https://www.facebook.com/groups/778412228952249/)
 
 ---
