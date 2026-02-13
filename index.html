@@ -481,7 +481,7 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
     <span class="ts-icon">🖼️</span>
     <div class="ts-info">
       <div class="ts-title">รวมรูปภาพจากหน้า</div>
-      <div class="ts-desc">ฝังภาพหน้า PDF ใน EPUB ด้วย — เหมาะสำหรับหนังสือที่มีภาพประกอบ (ไฟล์จะใหญ่ขึ้น)</div>
+      <div class="ts-desc">ฝังภาพประกอบใน EPUB — เฉพาะ PDF ดิจิทัลที่มีรูปจริง (ไม่ฝังหน้าสแกน)</div>
     </div>
     <div class="ts-toggle" id="imgtog"></div>
   </div>
@@ -647,7 +647,7 @@ var T={
     clickOrDrag:'<b>คลิกเลือกไฟล์</b> หรือลากมาวาง',pdfHint:'รองรับ .pdf — ไฟล์สแกนก็ใช้ได้',
     epubResTitle:'อัปโหลด EPUB เดิม — ต่อจากที่ค้าง',epubResDesc:'มี EPUB ที่สร้างค้างไว้? อัปโหลดแล้ว resume ต่อจากหน้าที่ยังไม่ได้แปลง',
     tsSaver:'Token Saver Mode',tsDesc:'ประหยัด token ~85% — ดึง text ก่อน, ข้ามหน้าว่าง, JPEG, ลดขนาด, prompt สั้น',
-    imgEmbed:'รวมรูปภาพจากหน้า',imgDesc:'ฝังภาพหน้า PDF ใน EPUB ด้วย — เหมาะสำหรับหนังสือที่มีภาพประกอบ (ไฟล์จะใหญ่ขึ้น)',
+    imgEmbed:'รวมรูปภาพจากหน้า',imgDesc:'ฝังภาพประกอบใน EPUB — เฉพาะ PDF ดิจิทัลที่มีรูปจริง (ไม่ฝังหน้าสแกน)',
     settings:'ตั้งค่า',startPage:'เริ่มหน้า',endPage:'สิ้นสุดหน้า',removeWords:'ลบคำเฉพาะ',
     bookInfo:'ข้อมูลหนังสือ',startBtn:'▶ เริ่มแปลงไฟล์',stopBtn:'■ หยุด',
     download:'ดาวน์โหลด',toc:'สารบัญ',addChapter:'+ เพิ่มบท',rebuildEpub:'🔄 สร้าง EPUB ใหม่',
@@ -660,7 +660,7 @@ var T={
     clickOrDrag:'<b>Click to select</b> or drag & drop',pdfHint:'Supports .pdf — scanned files work too',
     epubResTitle:'Upload existing EPUB — Resume',epubResDesc:'Have a partial EPUB? Upload it to resume from where you left off',
     tsSaver:'Token Saver Mode',tsDesc:'Save ~85% tokens — extract text first, skip blanks, JPEG, smaller images, shorter prompt',
-    imgEmbed:'Include Page Images',imgDesc:'Embed PDF page images in EPUB — great for illustrated books (larger file size)',
+    imgEmbed:'Include Page Images',imgDesc:'Embed illustrations in EPUB — for digital PDFs with real images only (skips scanned pages)',
     settings:'Settings',startPage:'Start Page',endPage:'End Page',removeWords:'Remove Words',
     bookInfo:'Book Information',startBtn:'▶ Start Conversion',stopBtn:'■ Stop',
     download:'Download',toc:'Table of Contents',addChapter:'+ Add Chapter',rebuildEpub:'🔄 Rebuild EPUB',
@@ -1152,25 +1152,28 @@ async function startProcess(){
   var embedImgs=$('imgcb').checked;
   async function processPage(p){
     var result={page:p,text:'',method:'',usage:null,skip:false,blank:false,imgB64:null,imgMime:null};
-    /* Smart image embed: only embed if page actually has images */
-    var shouldEmbed=embedImgs?await hasPageImages(p):false;
     if(tokenSaver){
       var extracted=await extractText(p);
       var cleanExt=extracted.replace(/[\s\d\.\,\-\u2014\u2013\(\)\/\\]/g,'');
       if(cleanExt.length>=30){
         result.text=extracted;result.method='text';
-        if(shouldEmbed){var ei=preCache[p]||await rp(p,true);delete preCache[p];result.imgB64=ei.b;result.imgMime=ei.mime}
+        /* Smart embed: page has text layer = digital PDF → embed only actual illustrations */
+        if(embedImgs&&await hasPageImages(p)){var ei=preCache[p]||await rp(p,true);delete preCache[p];result.imgB64=ei.b;result.imgMime=ei.mime}
       }else if(extracted.length>0&&isBlankText(extracted)){
         result.skip=true;
       }else{
+        /* No text layer → scanned page (image IS the page) → NEVER embed */
         var img=preCache[p]||await rp(p,true);delete preCache[p];
-        if(shouldEmbed){result.imgB64=img.b;result.imgMime=img.mime}
         var res=await ocrRetry(img.b,img.w,img.h,key,true,img.mime);
         result.text=cl(res.text,cw);result.method='ocr';result.usage=res.usage;
       }
     }else{
+      /* Check if page has text layer before deciding to embed */
+      var hasText=false;
+      try{var ext=await extractText(p);hasText=ext.replace(/[\s\d\.\,\-\(\)\/\\]/g,'').length>=30}catch(e){}
       var img2=preCache[p]||await rp(p,false);delete preCache[p];
-      if(shouldEmbed){result.imgB64=img2.b;result.imgMime=img2.mime}
+      /* Only embed images if page has text (=digital PDF with illustrations, not scanned) */
+      if(embedImgs&&hasText&&await hasPageImages(p)){result.imgB64=img2.b;result.imgMime=img2.mime}
       var res2=await ocrRetry(img2.b,img2.w,img2.h,key,false,img2.mime);
       result.text=cl(res2.text,cw);result.method='ocr';result.usage=res2.usage;
     }
