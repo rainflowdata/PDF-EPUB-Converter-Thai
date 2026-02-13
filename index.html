@@ -506,6 +506,16 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
     <button class="btn btn-res" id="bres" disabled>▶ ต่อ</button>
     <button class="btn btn-st" id="bst" disabled>■ หยุด</button>
   </div>
+  <div id="recoverBox" style="display:none;margin-bottom:.6rem">
+    <div style="padding:.7rem 1rem;background:var(--amber-l);border:1.5px solid var(--amber);border-radius:var(--r2);font-size:.76rem;color:#92400e">
+      <div style="font-weight:600;margin-bottom:.3rem">💾 พบข้อมูลค้าง — ไม่มี PDF ก็สร้าง EPUB ได้!</div>
+      <div id="recoverInfo" style="font-size:.68rem;color:#a16207;margin-bottom:.4rem"></div>
+      <div style="display:flex;gap:.3rem">
+        <button class="btn btn-go" id="bRecover" style="flex:none;padding:.4rem .8rem;font-size:.72rem;background:var(--amber);box-shadow:none">📥 กู้คืน → สร้าง EPUB</button>
+        <button class="btn btn-o" id="bRecoverClear" style="font-size:.68rem;padding:.35rem .6rem">🗑️ ลบทิ้ง</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Stats Bar -->
   <div class="statbar" id="statbar">
@@ -841,7 +851,45 @@ $('epubFi').onchange=async function(ev){
   var timeAgo=age<60000?'เมื่อกี้':age<3600000?Math.round(age/60000)+' นาทีที่แล้ว':Math.round(age/3600000)+' ชม.ที่แล้ว';
   setSt('💾 พบงานค้าง: "'+saved.fileName+'" — ได้ '+good+' หน้า ('+timeAgo+') อัปโหลด PDF เดิมแล้วกด Resume','info');
   log('💾 พบงานค้างใน localStorage: '+saved.fileName+' ('+good+' หน้า, '+timeAgo+')','purple');
+  /* แสดงปุ่มกู้คืน */
+  $('recoverBox').style.display='block';
+  $('recoverInfo').textContent='"'+saved.fileName+'" — '+good+' หน้า ('+timeAgo+') · ไม่ต้องมี PDF ก็สร้าง EPUB ได้ทันที';
+  $('mt').placeholder=saved.fileName.replace(/\.pdf$/i,'');
 })();
+
+/* ═══ Recover from localStorage ═══ */
+$('bRecover').onclick=async function(){
+  var saved=loadProgress();
+  if(!saved||!saved.ocrS||!saved.ocrS.length){setSt('❌ ไม่พบข้อมูลที่บันทึกไว้','err');return}
+  try{
+    ocrS=saved.ocrS;
+    stats=saved.stats||{total:ocrS.length,textExtract:0,ocrApi:0,skipped:0};
+    tokenUsage=saved.tokenUsage||{prompt:0,completion:0,total:0};
+    chaps=saved.chaps||[];
+    if(!chaps.length)chaps=dch(ocrS);
+    rtoc();
+    var title=$('mt').value.trim()||saved.fileName.replace(/\.pdf$/i,'')||'book';
+    $('mt').value=title;
+    log('💾 กู้คืนข้อมูล: '+ocrS.filter(function(s){return s&&s.trim()}).length+' หน้า','success');
+    setSt('กำลังสร้าง EPUB...','info');
+    var full=ocrS.filter(function(s){return s&&s.trim()}).join('\n\n--- Page Break ---\n\n');
+    var eb=await mke(ocrS,chaps);
+    var tb=new Blob(['\ufeff'+full],{type:'text/plain;charset=utf-8'});
+    $('de').href=URL.createObjectURL(eb);$('de').download=title+'.epub';$('es').textContent=fs(eb.size);
+    $('dt').href=URL.createObjectURL(tb);$('dt').download=title+'.txt';$('ts').textContent=fs(tb.size);
+    $('res').classList.add('on');
+    $('tocsec').classList.add('on');
+    $('statbar').classList.add('on');updateStats();
+    $('recoverBox').style.display='none';
+    var msg='✅ กู้คืนสำเร็จ! '+ocrS.filter(function(s){return s&&s.trim()}).length+' หน้า — EPUB พร้อมดาวน์โหลด';
+    setSt(msg,'ok');log('🎉 '+msg,'success');
+  }catch(e){setSt('❌ '+e.message,'err');log('❌ กู้คืน: '+e.message,'error')}
+};
+$('bRecoverClear').onclick=function(){
+  if(!confirm('ลบข้อมูลค้างทิ้ง? (ไม่สามารถกู้คืนได้)'))return;
+  clearProgress();$('recoverBox').style.display='none';
+  setSt('🗑️ ลบข้อมูลค้างแล้ว','info');log('🗑️ ลบ localStorage','purple');
+};
 
 $('tsrow').onclick=function(){var cb=$('tscb'),tog=$('tstog');cb.checked=!cb.checked;if(cb.checked)tog.classList.add('on');else tog.classList.remove('on')};
 $('imgrow').onclick=function(){var cb=$('imgcb'),tog=$('imgtog');cb.checked=!cb.checked;if(cb.checked)tog.classList.add('on');else tog.classList.remove('on')};
