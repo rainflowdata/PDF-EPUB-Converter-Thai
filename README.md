@@ -1,4 +1,4 @@
-# � CattoEPUB 📘 — PDF to EPUB Converter & 🐱 CattoTranslate 🌐 — AI Book Translator
+# 🐱 CattoEPUB 📘 — PDF to EPUB Converter & 🐱 CattoTranslate 🌐 — AI Book Translator
 
 แปลง PDF เป็น EPUB ด้วย Typhoon OCR / Gemini Flash + แปลหนังสือ AI (EN↔TH) — ทำงานในเบราว์เซอร์ ไม่ต้องติดตั้ง
 
@@ -16,7 +16,7 @@
 
 | หน้า | ไฟล์ | คำอธิบาย |
 |------|------|----------|
-| **� CattoEPUB** | `index.html` | แปลง PDF → EPUB ด้วย OCR (Typhoon/Gemini) |
+| **🐱 CattoEPUB** | `index.html` | แปลง PDF → EPUB ด้วย OCR (Typhoon/Gemini) |
 | **🐱 CattoTranslate** | `translate.html` | แปลหนังสือ PDF/EPUB (EN↔TH) ด้วย AI |
 
 ---
