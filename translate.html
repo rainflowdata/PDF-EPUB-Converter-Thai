@@ -196,6 +196,24 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .cost-bar{display:none;margin:.4rem 0;padding:.55rem .8rem;background:var(--purple-l);border:1px solid rgba(139,92,246,.2);border-radius:var(--r);font-size:.72rem;color:var(--text2);line-height:1.5}
 .cost-bar b{color:var(--text)}
 
+/* ═══ Recovery Box ═══ */
+.recbox{display:none;margin-bottom:.6rem;padding:.85rem 1rem;background:var(--amber-l);border:1.5px solid var(--amber);border-radius:var(--r2)}
+.recbox.on{display:block}
+.recbox .rec-info{font-size:.74rem;color:var(--text);line-height:1.6;margin-bottom:.5rem}
+.recbox .rec-info b{color:var(--amber)}
+.recbox .rec-btns{display:flex;gap:.3rem;flex-wrap:wrap}
+.recbox .rec-btns button{padding:.35rem .65rem;border:none;border-radius:var(--r);font-family:inherit;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:.25rem}
+.recbox .rb-build{background:var(--amber);color:white}
+.recbox .rb-build:hover{background:#d97706}
+.recbox .rb-resume{background:var(--green);color:white}
+.recbox .rb-resume:hover{background:#059669}
+.recbox .rb-export{background:var(--white);border:1.5px solid var(--border);color:var(--text2)}
+.recbox .rb-export:hover{background:var(--bg)}
+.recbox .rb-import{background:var(--white);border:1.5px solid var(--border);color:var(--text2)}
+.recbox .rb-import:hover{background:var(--bg)}
+.recbox .rb-del{background:var(--white);border:1.5px solid var(--red);color:var(--red)}
+.recbox .rb-del:hover{background:var(--red-l)}
+
 /* Stats bar */
 .statbar{display:none;margin-bottom:.6rem}.statbar.on{display:block}
 .statbar .sb-row{display:flex;gap:.4rem;flex-wrap:wrap}
@@ -322,6 +340,19 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 
   <!-- Cost Estimate -->
   <div class="cost-bar" id="costBar"></div>
+
+  <!-- Recovery Box -->
+  <div class="recbox" id="recBox">
+    <div class="rec-info" id="recInfo">💾 พบงานแปลค้าง</div>
+    <div class="rec-btns">
+      <button class="rb-build" id="rbBuild">📥 กู้คืน → สร้าง EPUB</button>
+      <button class="rb-resume" id="rbResume" style="display:none">▶️ แปลต่อ</button>
+      <button class="rb-export" id="rbExport">💾 Export JSON</button>
+      <button class="rb-import" id="rbImport">📂 Import JSON</button>
+      <button class="rb-del" id="rbDel">🗑️ ลบทิ้ง</button>
+      <input type="file" id="rbFi" accept=".json" hidden>
+    </div>
+  </div>
 
   <!-- Buttons -->
   <div class="brow">
@@ -565,6 +596,23 @@ async function extractPdfText(pageNum){
 $('cz').onclick=()=>$('ci').click();
 $('ci').onchange=()=>{var f=$('ci').files[0];if(!f)return;coverMime=f.type;var r=new FileReader();r.onload=e=>{coverUrl=e.target.result;$('cz').classList.add('ok');var o=$('cz').querySelector('img');if(o)o.remove();var i=document.createElement('img');i.src=coverUrl;$('cz').appendChild(i);log('ปก: '+f.name,'success')};r.readAsDataURL(f)};
 
+/* ═══ localStorage Save/Restore ═══ */
+var LS_TR_KEY='bepub_translate_progress';
+function saveTrProgress(){
+  try{localStorage.setItem(LS_TR_KEY,JSON.stringify({
+    v:1,srcPages:srcPages,translatedPages:translatedPages,dir:_dir,
+    stats:stats,tokenUsage:tokenUsage,chaps:chaps,
+    meta:{t:$('mt').value,a:$('ma').value,p:$('mp').value,l:$('ml').value,d:$('md').value},
+    style:$('style').value,prov:$('prov').value,
+    sp:+$('sp').value||1,ep:+$('ep').value||0,
+    ts:Date.now()
+  }))}catch(e){}
+}
+function loadTrProgress(){
+  try{var d=localStorage.getItem(LS_TR_KEY);return d?JSON.parse(d):null}catch(e){return null}
+}
+function clearTrProgress(){try{localStorage.removeItem(LS_TR_KEY)}catch(e){}}
+
 /* ═══ Post-processing: clean CJK garbage & artifacts ═══ */
 function cleanTranslation(text){
   /* Remove stray CJK characters (Chinese/Japanese) mixed in Thai output */
@@ -798,6 +846,7 @@ async function startTranslate(){
       translatedPages.push(translated);
       full+=translated+'\n\n--- Page Break ---\n\n';
       stats.done++;consErr=0;
+      saveTrProgress(); /* save after each page */
 
       /* ETA */
       var remain=stats.total-stats.done;
@@ -849,6 +898,7 @@ async function startTranslate(){
     var msg='✅ แปลเสร็จ! '+goodPages+' หน้า'+tokStr;
     setSt(msg,'ok');log('🎉 '+msg,'success');
     sendNotif('Bepub Translate ✅',msg);
+    clearTrProgress();
   }else{
     var stopReason=isCancelled?'หยุดโดยผู้ใช้':fatalErr?(fatalErr.reason==='invalid_key'?'🔑 Key ไม่ถูกต้อง':fatalErr.reason==='quota_exceeded'?'💳 Token หมด':'🚫 Rate limit'):'Error '+consErr+' ครั้งติด';
     var msg2=stopReason+' — ได้ '+goodPages+'/'+stats.total+' หน้า'+tokStr;
@@ -939,6 +989,130 @@ async function buildEpub(pages,ch){
 
   return z.generateAsync({type:'blob',mimeType:'application/epub+zip'});
 }
+
+/* ═══ Recovery: auto-detect saved progress ═══ */
+(function(){
+  var saved=loadTrProgress();
+  if(!saved||!saved.translatedPages||!saved.translatedPages.length)return;
+  var age=Date.now()-saved.ts;
+  if(age>48*60*60*1000){clearTrProgress();return} /* expire after 48h */
+  var good=saved.translatedPages.filter(function(s){return s&&s.trim()}).length;
+  var total=saved.srcPages?saved.srcPages.length:0;
+  var timeAgo=age<60000?'เมื่อกี้':age<3600000?Math.round(age/60000)+' นาทีที่แล้ว':Math.round(age/3600000)+' ชม.ที่แล้ว';
+  var dirLabel=saved.dir==='en2th'?'EN→TH':'TH→EN';
+  $('recInfo').innerHTML='💾 พบงานแปลค้าง: <b>'+dirLabel+'</b> — ได้ '+good+'/'+total+' หน้า ('+timeAgo+')';
+  $('recBox').classList.add('on');
+  /* Show resume button if not all pages done */
+  if(good<total)$('rbResume').style.display='inline-flex';
+  /* Restore metadata hints */
+  if(saved.meta){
+    if(saved.meta.t)$('mt').value=saved.meta.t;
+    if(saved.meta.a)$('ma').value=saved.meta.a;
+    if(saved.meta.p)$('mp').value=saved.meta.p;
+    if(saved.meta.l)$('ml').value=saved.meta.l;
+    if(saved.meta.d)$('md').value=saved.meta.d;
+  }
+  log('💾 พบงานแปลค้าง: '+good+'/'+total+' หน้า ('+timeAgo+')','purple');
+})();
+
+/* ═══ Recovery Actions ═══ */
+$('rbBuild').onclick=async function(){
+  var saved=loadTrProgress();
+  if(!saved||!saved.translatedPages||!saved.translatedPages.length){setSt('❌ ไม่พบข้อมูล','err');return}
+  try{
+    translatedPages=saved.translatedPages;
+    srcPages=saved.srcPages||[];
+    _dir=saved.dir||'en2th';updateDir();
+    stats=saved.stats||{total:translatedPages.length,done:translatedPages.filter(function(s){return s&&s.trim()}).length,skipped:0};
+    tokenUsage=saved.tokenUsage||{prompt:0,completion:0,total:0};
+    chaps=saved.chaps||detectChapters(translatedPages);
+    rtoc();
+    var title=$('mt').value.trim()||'translated';
+    var base=title+(_dir==='en2th'?' (TH)':' (EN)');
+    setSt('กำลังสร้าง EPUB...','info');
+    var eb=await buildEpub(translatedPages,chaps);
+    var full=translatedPages.filter(function(s){return s&&s.trim()}).join('\n\n--- Page Break ---\n\n');
+    var tb=new Blob(['\ufeff'+full],{type:'text/plain;charset=utf-8'});
+    $('de').href=URL.createObjectURL(eb);$('de').download=base+'.epub';$('es').textContent=fs(eb.size);
+    $('dt').href=URL.createObjectURL(tb);$('dt').download=base+'.txt';$('ts').textContent=fs(tb.size);
+    $('res').classList.add('on');$('statbar').classList.add('on');updateStats();
+    if(srcPages.length&&translatedPages.length){$('compareSec').classList.add('on');showComparePage(0)}
+    $('recBox').classList.remove('on');
+    setSt('✅ กู้คืนสำเร็จ! EPUB พร้อมดาวน์โหลด','ok');
+    log('🎉 กู้คืน: '+translatedPages.filter(function(s){return s&&s.trim()}).length+' หน้า','success');
+  }catch(e){setSt('❌ '+e.message,'err');log('❌ กู้คืน: '+e.message,'error')}
+};
+
+$('rbResume').onclick=function(){
+  var saved=loadTrProgress();
+  if(!saved||!saved.srcPages||!saved.srcPages.length){setSt('❌ ไม่พบข้อมูลต้นฉบับ','err');return}
+  /* Restore all state so user can hit "เริ่มแปล" */
+  srcPages=saved.srcPages;
+  translatedPages=saved.translatedPages||[];
+  _dir=saved.dir||'en2th';updateDir();
+  stats=saved.stats||{total:srcPages.length,done:translatedPages.length,skipped:0};
+  tokenUsage=saved.tokenUsage||{prompt:0,completion:0,total:0};
+  if(saved.style)$('style').value=saved.style;
+  if(saved.meta){if(saved.meta.t)$('mt').value=saved.meta.t;if(saved.meta.a)$('ma').value=saved.meta.a;if(saved.meta.p)$('mp').value=saved.meta.p;if(saved.meta.l)$('ml').value=saved.meta.l;if(saved.meta.d)$('md').value=saved.meta.d}
+  var done=translatedPages.filter(function(s){return s&&s.trim()}).length;
+  /* Set start page to resume from */
+  var sp=saved.sp||1;
+  var resumeFrom=sp+done;
+  $('sp').value=resumeFrom;
+  if(saved.ep)$('ep').value=saved.ep;
+  $('srcInfo').style.display='block';
+  $('srcInfo').innerHTML='📗 กู้คืน: '+srcPages.length+' หน้า · แปลแล้ว '+done+' หน้า · จะแปลต่อจากหน้า '+resumeFrom;
+  $('recBox').classList.remove('on');
+  ck();updateCost();
+  setSt('▶️ พร้อมแปลต่อ — กดปุ่ม "เริ่มแปล" ได้เลย','info');
+  log('▶️ กู้คืนสถานะ: แปลต่อจากหน้า '+resumeFrom,'success');
+};
+
+$('rbExport').onclick=function(){
+  var saved=loadTrProgress();
+  if(!saved){setSt('❌ ไม่พบข้อมูล','err');return}
+  var blob=new Blob([JSON.stringify(saved,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='bepub_translate_backup_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  log('💾 Export สำเร็จ','success');
+};
+
+$('rbImport').onclick=function(){$('rbFi').click()};
+$('rbFi').onchange=function(){
+  var f=$('rbFi').files[0];
+  if(!f)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.translatedPages||!data.translatedPages.length)throw new Error('ไฟล์ไม่มีข้อมูลการแปล');
+      localStorage.setItem(LS_TR_KEY,JSON.stringify(data));
+      /* Reload to pick up */
+      var good=data.translatedPages.filter(function(s){return s&&s.trim()}).length;
+      srcPages=data.srcPages||[];
+      translatedPages=data.translatedPages;
+      _dir=data.dir||'en2th';updateDir();
+      stats=data.stats||{total:translatedPages.length,done:good,skipped:0};
+      tokenUsage=data.tokenUsage||{prompt:0,completion:0,total:0};
+      if(data.meta){if(data.meta.t)$('mt').value=data.meta.t;if(data.meta.a)$('ma').value=data.meta.a;if(data.meta.p)$('mp').value=data.meta.p;if(data.meta.l)$('ml').value=data.meta.l;if(data.meta.d)$('md').value=data.meta.d}
+      ck();updateCost();
+      $('recInfo').innerHTML='💾 Import สำเร็จ: '+good+'/'+srcPages.length+' หน้า';
+      $('recBox').classList.add('on');
+      if(good<srcPages.length)$('rbResume').style.display='inline-flex';
+      setSt('✅ Import สำเร็จ — กดกู้คืนหรือแปลต่อได้','ok');
+      log('📂 Import: '+good+' หน้า จาก '+f.name,'success');
+    }catch(err){setSt('❌ ไฟล์ไม่ถูกต้อง: '+err.message,'err');log('❌ Import: '+err.message,'error')}
+  };
+  reader.readAsText(f);
+};
+
+$('rbDel').onclick=function(){
+  if(!confirm('ลบข้อมูลแปลค้างทิ้ง? (ไม่สามารถกู้คืนได้)'))return;
+  clearTrProgress();$('recBox').classList.remove('on');
+  setSt('🗑️ ลบข้อมูลค้างแล้ว','info');log('🗑️ ลบ localStorage','purple');
+};
 </script>
 </body>
 </html>
