@@ -328,6 +328,14 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .cost-bar.on{display:block}
 .cost-bar b{color:var(--text)}
 
+/* Nav pill */
+.nav-pill{display:inline-flex;gap:.3rem;margin-top:.8rem;padding:.25rem;background:rgba(255,255,255,.3);border-radius:100px;backdrop-filter:blur(8px)}
+.nav-pill a{font-size:.7rem;font-weight:600;padding:.3rem .8rem;border-radius:100px;text-decoration:none;color:var(--text2);transition:all .2s}
+.nav-pill a.active{background:var(--white);color:var(--blue-d);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.nav-pill a:hover:not(.active){background:rgba(255,255,255,.4)}
+[data-theme="dark"] .nav-pill{background:rgba(0,0,0,.3)}
+[data-theme="dark"] .nav-pill a.active{background:var(--white);color:var(--blue)}
+
 @media(max-width:640px){
   .hero h1{font-size:1.7rem}
   .hero{padding:2rem 1rem 1.5rem}
@@ -386,6 +394,10 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
       <span class="tag">📱 Mobile Ready</span>
       <span class="tag">🔒 ข้อมูลไม่ผ่านเซิร์ฟเวอร์</span>
       <span class="tag">⚡ Client-Side</span>
+    </div>
+    <div class="nav-pill">
+      <a href="index.html" class="active">📘 OCR Converter</a>
+      <a href="translate.html">🌐 AI Translate</a>
     </div>
     <p style="font-size:.68rem;color:var(--text3);margin-top:.75rem;line-height:1.5">💡 Based on <strong>Bepub</strong> by <a href="https://www.facebook.com/groups/ebookreader/posts/25556985560668239" target="_blank" style="color:var(--blue);text-decoration:none">Ken Takahashi</a> (<a href="https://colab.research.google.com/drive/1lgmYkuEeSUlVDLpplXCnFIQdJP9YMWjw?usp=sharing" target="_blank" style="color:var(--blue);text-decoration:none;font-size:.64rem">Colab</a>)<br>Web version by <strong style="color:var(--blue)">rainflowData</strong></p>
   </div>
