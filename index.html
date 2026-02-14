@@ -18,7 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -79,7 +79,7 @@
 
 html{font-size:15px;scroll-behavior:smooth}
 body{
-  font-family:'Sarabun','Plus Jakarta Sans',system-ui,sans-serif;
+  font-family:'Inter','IBM Plex Sans Thai',system-ui,sans-serif;
   background:linear-gradient(135deg, #E8F4FF 0%, #D4E8FF 25%, #C8DFFF 50%, #D8E8FF 75%, #E5F3FF 100%);
   background-attachment:fixed;
   color:var(--text);
@@ -123,7 +123,7 @@ body{
   filter:drop-shadow(0 4px 14px rgba(79,70,140,.3));
 }
 .hero h1{
-  font-family:'Plus Jakarta Sans',sans-serif;
+  font-family:'Inter',sans-serif;
   font-size:2.8rem;font-weight:800;letter-spacing:-.03em;
   color:#fff;line-height:1.2;margin-bottom:.35rem;
   text-shadow:2px 2px 4px rgba(0,0,0,0.3);
@@ -156,7 +156,7 @@ body{
   display:flex;align-items:center;justify-content:space-between;
   padding:1rem 1.25rem;cursor:pointer;user-select:none;
 }
-.tut-head h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem}
+.tut-head h3{font-family:'Inter',sans-serif;font-size:.88rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem}
 .tut-arr{font-size:.6rem;color:var(--text3);transition:transform .2s;width:22px;height:22px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center}
 .tut.open .tut-arr{transform:rotate(180deg)}
 .tut-body{display:none;padding:0 1.25rem 1.25rem;font-size:.82rem;line-height:1.75;color:var(--text2)}
@@ -192,10 +192,10 @@ body{
 .card-n{
   width:22px;height:22px;border-radius:6px;flex-shrink:0;
   background:var(--blue);color:white;
-  font-family:'Plus Jakarta Sans',sans-serif;font-size:.65rem;font-weight:700;
+  font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;
   display:flex;align-items:center;justify-content:center;
 }
-.card-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:600}
+.card-t{font-family:'Inter',sans-serif;font-size:.88rem;font-weight:600}
 
 /* ═══ FORM ═══ */
 .f{margin-bottom:.7rem}.f:last-child{margin-bottom:0}
@@ -400,7 +400,7 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .ts-row:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(107,143,216,0.2);border-color:#B8D4FF}
 .ts-row .ts-icon{font-size:1.4rem;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}
 .ts-row .ts-info{flex:1;min-width:0}
-.ts-row .ts-title{font-size:.88rem;font-weight:800;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif}
+.ts-row .ts-title{font-size:.88rem;font-weight:800;color:var(--text);font-family:'Inter',sans-serif}
 .ts-row .ts-desc{font-size:.68rem;color:var(--text2);line-height:1.4;margin-top:.1rem}
 .ts-toggle{position:relative;width:36px;height:20px;border-radius:10px;background:#fff;transition:all .2s;flex-shrink:0;border:2px solid #D4E8FF}
 .ts-toggle.on{background:var(--green)}
@@ -430,7 +430,7 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .edt-overlay.on{display:flex}
 .edt-box{background:var(--white);border-radius:var(--r3);padding:1.25rem;width:92%;max-width:600px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(107,143,216,0.25);border:3px solid #D4E8FF}
 .edt-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
-.edt-head h3{font-size:.88rem;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif}
+.edt-head h3{font-size:.88rem;font-weight:600;font-family:'Inter',sans-serif}
 .edt-close{width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--text3)}
 .edt-close:hover{color:var(--red);border-color:var(--red)}
 .edt-ta{flex:1;width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r);font-family:'Sarabun',sans-serif;font-size:.82rem;line-height:1.8;color:var(--text);background:var(--bg);resize:none;outline:none;min-height:200px}
@@ -1170,7 +1170,7 @@ async function mke(ss,ch){
   const z=new JSZip(),m={t:$('mt').value.trim()||pdfFile.name.replace(/\.pdf$/i,''),a:$('ma').value.trim()||'Unknown',p:$('mp').value.trim(),l:$('ml').value.trim()||'th',d:$('md').value.trim()},uid='cattoepub-'+Date.now();
   z.file('mimetype','application/epub+zip',{compression:'STORE'});
   z.file('META-INF/container.xml','<?xml version="1.0"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>');
-  z.file('OEBPS/style.css',`@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');body{font-family:'Sarabun',sans-serif;line-height:1.9;padding:1.2em;color:#1a1a1a;max-width:38em;margin:0 auto}h1{font-size:1.6em;margin:1.5em 0 .5em;font-weight:600}h2{font-size:1.3em;margin:1.3em 0 .4em}h3{font-size:1.1em;margin:1.1em 0 .3em}p{margin:.4em 0;text-indent:1.5em;text-align:justify}table{border-collapse:collapse;width:100%;margin:1em 0}td,th{border:1px solid #ddd;padding:.5em .7em}blockquote{border-left:3px solid #ccc;padding-left:1em;color:#555;margin:1em 0}img.cover{max-width:100%;display:block;margin:0 auto}img.page-img{max-width:100%;display:block;margin:1em auto;border:1px solid #eee;border-radius:4px}`);
+  z.file('OEBPS/style.css',`@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600&display=swap');body{font-family:'IBM Plex Sans Thai',sans-serif;line-height:1.9;padding:1.2em;color:#1a1a1a;max-width:38em;margin:0 auto}h1{font-size:1.6em;margin:1.5em 0 .5em;font-weight:600}h2{font-size:1.3em;margin:1.3em 0 .4em}h3{font-size:1.1em;margin:1.1em 0 .3em}p{margin:.4em 0;text-indent:1.5em;text-align:justify}table{border-collapse:collapse;width:100%;margin:1em 0}td,th{border:1px solid #ddd;padding:.5em .7em}blockquote{border-left:3px solid #ccc;padding-left:1em;color:#555;margin:1em 0}img.cover{max-width:100%;display:block;margin:0 auto}img.page-img{max-width:100%;display:block;margin:1em auto;border:1px solid #eee;border-radius:4px}`);
   let mf='<item id="css" href="style.css" media-type="text/css"/>\n',sp='',nav='',po=1,pfm={};
   if(coverUrl){const ext=coverMime?.includes('png')?'png':'jpg',mt=coverMime||'image/jpeg';z.file(`OEBPS/cover.${ext}`,Uint8Array.from(atob(coverUrl.split(',')[1]),c=>c.charCodeAt(0)));mf+=`<item id="cover-img" href="cover.${ext}" media-type="${mt}"/>\n`;z.file('OEBPS/cover.xhtml',`<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="UTF-8"/><link rel="stylesheet" href="style.css"/></head><body><div style="text-align:center"><img class="cover" src="cover.${ext}" alt="Cover"/></div></body></html>`);mf+=`<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>\n`;sp+=`<itemref idref="cover"/>\n`;nav+=`<navPoint id="cover" playOrder="${po++}"><navLabel><text>ปก</text></navLabel><content src="cover.xhtml"/></navPoint>\n`}
   ss.forEach((s,i)=>{if(!s.trim())return;const fn=`p${i}.xhtml`;pfm[i]=fn;
