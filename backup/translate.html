@@ -8,11 +8,6 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#6B9FD8">
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4625693104435293" crossorigin="anonymous"></script>
-<!-- Google Analytics (replace G-XXXXXXXXXX with your Measurement ID) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -24,7 +19,7 @@
 
 :root{
   --bg:#f5f7fa;--bg2:#e8ebf0;--white:#ffffff;
-  --border:#D4E8FF;--border2:#B8D4FF;
+  --border:#000000;--border2:#333333;
   --text:#111827;--text2:#4b5563;--text3:#6b7280;
   --blue:#6B9FD8;--blue-d:#5B8BC8;--blue-l:#e0ebf8;--blue-xl:#f0f5ff;
   --green:#00F0B6;--green-l:#d1fae5;
@@ -49,32 +44,28 @@
 [data-theme="dark"] .tag{background:var(--purple-l);color:var(--purple)}
 
 html{font-size:15px;scroll-behavior:smooth}
-body{font-family:'Sarabun','Plus Jakarta Sans',system-ui,sans-serif;background:linear-gradient(135deg, #E8F4FF 0%, #D4E8FF 25%, #C8DFFF 50%, #D8E8FF 75%, #E5F3FF 100%);background-attachment:fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Sarabun','Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
 /* ═══ HERO ═══ */
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 .hero{
-  background:linear-gradient(135deg,#7B9FD8 0%,#6B8FD8 100%);
-  border-bottom:3px solid #5B7FBE;
-  box-shadow:0 4px 20px rgba(107,143,216,0.3);
-  padding:3rem 1.25rem 2.5rem;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#6B9FD8 0%,#5B8BC8 100%);
+  border-bottom:4px solid #000;
+  padding:2.5rem 1.25rem 2rem;position:relative;overflow:hidden;
 }
-.hero::before{content:'💧';position:absolute;font-size:80px;opacity:0.08;top:10px;left:5%;animation:float 6s ease-in-out infinite;pointer-events:none}
-.hero::after{content:'✨';position:absolute;font-size:60px;opacity:0.08;top:15px;right:5%;animation:float 8s ease-in-out infinite;pointer-events:none}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:60%;height:120%;background:radial-gradient(ellipse,rgba(139,92,246,.15) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-15%;width:50%;height:100%;background:radial-gradient(ellipse,rgba(96,165,250,.12) 0%,transparent 65%);pointer-events:none}
 .hero-in{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
 .hero-title-row{display:inline-flex;align-items:center;gap:.7rem;justify-content:center;margin-bottom:.35rem}
-.hero-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.6);background:transparent;filter:drop-shadow(0 4px 15px rgba(0,0,0,.2));flex-shrink:0;transition:transform .3s ease,filter .3s ease}
+.hero-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:none;background:transparent;filter:drop-shadow(0 2px 8px rgba(79,70,140,.2));flex-shrink:0;transition:transform .3s ease,filter .3s ease}
 .hero-avatar:hover{transform:scale(1.12) rotate(3deg);filter:drop-shadow(0 4px 14px rgba(79,70,140,.3))}
-.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.8rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.2;margin-bottom:.35rem;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.2rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.2;margin-bottom:.35rem;text-shadow:2px 2px 0 rgba(0,0,0,0.2)}
 .hero h1 span{color:#fff}
-.hero-desc{font-size:.95rem;color:rgba(255,255,255,0.95);line-height:1.7;margin-bottom:1.2rem}
+.hero-desc{font-size:.9rem;color:#fff;line-height:1.6;margin-bottom:1rem;opacity:0.95}
 .tags{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
-.tag{font-size:.68rem;font-weight:700;padding:.3rem .7rem;border-radius:20px;background:#fff;color:var(--blue);display:inline-flex;align-items:center;gap:.3rem;border:2px solid rgba(107,143,216,0.2);box-shadow:0 2px 8px rgba(107,143,216,0.15);transition:all .3s ease}
-.tag:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(107,143,216,0.25)}
+.tag{font-size:.68rem;font-weight:700;padding:.3rem .7rem;border-radius:20px;background:#fff;color:var(--blue);display:inline-flex;align-items:center;gap:.3rem;border:2px solid #000;box-shadow:0 3px 0 rgba(0,0,0,0.2)}
 
 /* Nav pill */
-.nav-pill{display:inline-flex;gap:.3rem;margin-top:.8rem;padding:.25rem;background:#fff;border-radius:25px;border:2px solid #D4E8FF;box-shadow:0 3px 8px rgba(107,143,216,0.15)}
+.nav-pill{display:inline-flex;gap:.3rem;margin-top:.8rem;padding:.25rem;background:#fff;border-radius:25px;border:2px solid #000;box-shadow:0 3px 0 rgba(0,0,0,0.15)}
 .nav-pill a{font-size:.7rem;font-weight:700;padding:.3rem .8rem;border-radius:20px;text-decoration:none;color:var(--text2);transition:all .2s}
 .nav-pill a.active{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(107,159,216,0.3)}
 .nav-pill a:hover:not(.active){background:var(--bg)}
@@ -85,8 +76,8 @@ body{font-family:'Sarabun','Plus Jakarta Sans',system-ui,sans-serif;background:l
 .wrap{max-width:640px;margin:0 auto;padding:1.25rem 1rem 3rem}
 
 /* ═══ CARD ═══ */
-.card{background:var(--white);border:3px solid #D4E8FF;border-radius:var(--r3);padding:1.25rem;margin-bottom:.6rem;transition:all .3s ease;box-shadow:0 8px 30px rgba(107,143,216,0.12);animation:slideUp 0.6s ease-out}
-.card:hover{transform:translateY(-8px);box-shadow:0 15px 50px rgba(107,143,216,0.2);border-color:#B8D4FF}
+.card{background:var(--white);border:3px solid #000;border-radius:var(--r3);padding:1.25rem;margin-bottom:.6rem;transition:all .2s;box-shadow:0 6px 0 rgba(0,0,0,0.15)}
+.card:hover{transform:scale(1.02);box-shadow:0 8px 0 rgba(0,0,0,0.2)}
 .card-h{display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem}
 .card-n{width:22px;height:22px;border-radius:6px;flex-shrink:0;background:var(--blue);color:white;font-family:'Plus Jakarta Sans',sans-serif;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center}
 .card-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:600}
@@ -94,16 +85,16 @@ body{font-family:'Sarabun','Plus Jakarta Sans',system-ui,sans-serif;background:l
 /* ═══ FORM ═══ */
 .f{margin-bottom:.7rem}.f:last-child{margin-bottom:0}
 .fl{display:block;font-size:.7rem;font-weight:600;color:var(--text2);margin-bottom:.25rem;letter-spacing:.02em}
-.fi{width:100%;padding:.5rem .65rem;background:#fff;border:2px solid #D4E8FF;border-radius:var(--r);font-family:inherit;font-size:.84rem;color:var(--text);outline:none;transition:all .2s ease}
-.fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(107,143,216,0.1)}
+.fi{width:100%;padding:.5rem .65rem;background:#fff;border:2px solid #000;border-radius:var(--r);font-family:inherit;font-size:.84rem;color:var(--text);outline:none;transition:all .12s}
+.fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(107,159,216,0.2)}
 .fi::placeholder{color:var(--text3)}
 textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem}
 
 /* ═══ UPLOAD ═══ */
-.up{border:3px dashed #D4E8FF;border-radius:var(--r2);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .3s ease;background:#fff;box-shadow:0 6px 20px rgba(107,143,216,0.1)}
-.up:hover,.up.drag{border-style:solid;background:var(--blue-xl);transform:translateY(-3px);box-shadow:0 8px 25px rgba(107,143,216,0.15)}
+.up{border:3px dashed #000;border-radius:var(--r2);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .15s;background:#fff;box-shadow:0 4px 0 rgba(0,0,0,0.1)}
+.up:hover,.up.drag{border-style:solid;background:var(--blue-xl);transform:translateY(-1px)}
 .up.ok{border-color:var(--green);border-style:solid;background:var(--green-l)}
 .up .ui{font-size:1.5rem;display:block;margin-bottom:.2rem}
 .up .ut{font-size:.84rem;color:var(--text2)}.up .ut b{color:var(--text);font-weight:500}
@@ -111,8 +102,8 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .up .uf{font-size:.78rem;color:var(--green);font-weight:500;margin-top:.25rem}
 
 /* Cover */
-.cov{width:100px;height:140px;border:3px dashed #D4E8FF;border-radius:var(--r);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .3s ease;background:#fff;overflow:hidden;position:relative;box-shadow:0 6px 20px rgba(107,143,216,0.1)}
-.cov:hover{border-style:solid;background:var(--blue-xl);transform:translateY(-3px);box-shadow:0 8px 25px rgba(107,143,216,0.15)}
+.cov{width:100px;height:140px;border:3px dashed #000;border-radius:var(--r);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;background:#fff;overflow:hidden;position:relative;box-shadow:0 4px 0 rgba(0,0,0,0.1)}
+.cov:hover{border-style:solid;background:var(--blue-xl);transform:translateY(-1px)}
 .cov.ok{border-style:solid;border-color:var(--green)}
 .cov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1}
 .cov-ph{text-align:center;font-size:.62rem;color:var(--text3)}
@@ -123,44 +114,44 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 
 /* ═══ LANG DIR ═══ */
 .lang-dir{display:flex;align-items:center;gap:.4rem;justify-content:center;margin:.5rem 0}
-.lang-box{padding:.5rem 1rem;background:#fff;border:2px solid #D4E8FF;border-radius:var(--r);font-size:.9rem;font-weight:700;color:var(--text);min-width:80px;text-align:center;box-shadow:0 3px 8px rgba(107,143,216,0.15)}
-.lang-swap{width:36px;height:36px;border-radius:50%;border:3px solid #D4E8FF;background:#00F0B6;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s ease;box-shadow:0 4px 15px rgba(107,143,216,0.2)}
-.lang-swap:hover{transform:rotate(180deg) translateY(-2px);box-shadow:0 6px 20px rgba(107,143,216,0.3)}
+.lang-box{padding:.5rem 1rem;background:#fff;border:2px solid #000;border-radius:var(--r);font-size:.9rem;font-weight:700;color:var(--text);min-width:80px;text-align:center;box-shadow:0 3px 0 rgba(0,0,0,0.15)}
+.lang-swap{width:36px;height:36px;border-radius:50%;border:3px solid #000;background:#00F0B6;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s;box-shadow:0 4px 0 rgba(0,0,0,0.2)}
+.lang-swap:hover{transform:rotate(180deg) translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,0.3)}
 
 /* ═══ BUTTONS ═══ */
 .brow{display:flex;gap:.4rem;margin:.6rem 0}
-.btn{padding:.55rem 1rem;border:3px solid #D4E8FF;border-radius:var(--r);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:.3rem;box-shadow:0 4px 15px rgba(107,143,216,0.2)}
-.btn-go{background:linear-gradient(135deg,#6B9FD8 0%,#5B8BC8 100%);color:white;flex:1;justify-content:center}
-.btn-go:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 25px rgba(107,143,216,0.35)}
+.btn{padding:.55rem 1rem;border:3px solid #000;border-radius:var(--r);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:.3rem;box-shadow:0 4px 0 rgba(0,0,0,0.2)}
+.btn-go{background:var(--blue);color:white;flex:1;justify-content:center}
+.btn-go:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,0.3)}
 .btn-go:disabled{opacity:.4;cursor:not-allowed}
-.btn-st{background:var(--white);border:3px solid #D4E8FF;color:var(--red)}
-.btn-st:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 25px rgba(107,143,216,0.25)}
+.btn-st{background:var(--white);border:3px solid #000;color:var(--red)}
+.btn-st:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,0.3)}
 .btn-st:disabled{opacity:.3;cursor:not-allowed}
-.btn-o{background:var(--white);border:2px solid #D4E8FF;color:var(--text2);font-size:.72rem;padding:.35rem .6rem;box-shadow:0 3px 8px rgba(107,143,216,0.15)}
-.btn-o:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(107,143,216,0.25)}
+.btn-o{background:var(--white);border:2px solid #000;color:var(--text2);font-size:.72rem;padding:.35rem .6rem;box-shadow:0 3px 0 rgba(0,0,0,0.15)}
+.btn-o:hover{transform:translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,0.2)}
 
 /* ═══ PROGRESS ═══ */
 .prg{display:none;margin-bottom:.6rem}.prg.on{display:block}
-.prg-box{background:var(--white);border:3px solid #D4E8FF;border-radius:var(--r2);padding:.85rem 1rem;box-shadow:0 8px 30px rgba(107,143,216,0.12)}
+.prg-box{background:var(--white);border:3px solid #000;border-radius:var(--r2);padding:.85rem 1rem;box-shadow:0 6px 0 rgba(0,0,0,0.15)}
 .prg-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
 .prg-t{font-size:.78rem;color:var(--text2)}
 .prg-p{font-size:.7rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
-.prg-track{height:14px;background:var(--bg2);border-radius:7px;overflow:hidden;border:2px solid #D4E8FF}
-.prg-bar{height:100%;border-radius:0;width:0%;background:linear-gradient(135deg,#7B9FD8 0%,#6B8FD8 100%);transition:width .3s;box-shadow:inset 0 1px 2px rgba(255,255,255,0.3)}
+.prg-track{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden;border:2px solid #000}
+.prg-bar{height:100%;border-radius:0;width:0%;background:var(--blue);transition:width .3s}
 @keyframes pl{0%,100%{opacity:1}50%{opacity:.5}}
 .prg.run .prg-t{animation:pl 1.5s infinite}
 
 /* ═══ STATUS ═══ */
 .sts{padding:.6rem .85rem;border-radius:var(--r);font-size:.78rem;display:none;margin-bottom:.6rem;border:3px solid;font-weight:600}
-.sts.info{display:block;background:var(--blue-xl);border-color:#D4E8FF;color:var(--blue-d);box-shadow:0 4px 15px rgba(107,143,216,0.1)}
-.sts.err{display:block;background:var(--red-l);border-color:#D4E8FF;color:var(--red);box-shadow:0 4px 15px rgba(239,68,68,0.1)}
-.sts.ok{display:block;background:var(--green-l);border-color:#D4E8FF;color:#059669;box-shadow:0 4px 15px rgba(0,240,182,0.1)}
+.sts.info{display:block;background:var(--blue-xl);border-color:#000;color:var(--blue-d)}
+.sts.err{display:block;background:var(--red-l);border-color:#000;color:var(--red)}
+.sts.ok{display:block;background:var(--green-l);border-color:#000;color:#059669}
 
 /* ═══ RESULTS ═══ */
 .res{display:none}.res.on{display:block}
 .dlg{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.dlc{display:flex;align-items:center;gap:.6rem;padding:.7rem .85rem;background:var(--white);border:3px solid #D4E8FF;border-radius:var(--r2);cursor:pointer;transition:all .3s ease;text-decoration:none;color:inherit;box-shadow:0 8px 30px rgba(107,143,216,0.12)}
-.dlc:hover{transform:translateY(-5px);box-shadow:0 15px 50px rgba(107,143,216,0.2);border-color:#B8D4FF}
+.dlc{display:flex;align-items:center;gap:.6rem;padding:.7rem .85rem;background:var(--white);border:3px solid #000;border-radius:var(--r2);cursor:pointer;transition:all .15s;text-decoration:none;color:inherit;box-shadow:0 4px 0 rgba(0,0,0,0.2)}
+.dlc:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,0.3)}
 .dli{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .dli.epub{background:var(--green-l);color:var(--green)}
 .dli.txt{background:var(--amber-l);color:var(--amber)}
@@ -173,8 +164,8 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .toci{display:flex;align-items:center;gap:.4rem;padding:.35rem .4rem;border-radius:6px;font-size:.78rem;border-bottom:1px solid var(--bg)}
 .toci:hover{background:var(--bg)}
 .toci .tn{font-size:.62rem;color:var(--text3);font-weight:700;min-width:24px}
-.toci input{flex:1;padding:.2rem .35rem;font-size:.78rem;border:2px solid #D4E8FF;border-radius:5px;font-family:inherit;background:var(--white);color:var(--text);outline:none;transition:all .2s ease}
-.toci input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(107,143,216,0.1)}
+.toci input{flex:1;padding:.2rem .35rem;font-size:.78rem;border:2px solid #000;border-radius:5px;font-family:inherit;background:var(--white);color:var(--text);outline:none}
+.toci input:focus{border-color:var(--accent)}
 .toci .tp{font-size:.66rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
 .toci .tx{cursor:pointer;color:var(--text3);font-size:.68rem;padding:.15rem .2rem;border-radius:4px;transition:all .12s}
 .toci .tx:hover{color:var(--red);background:var(--red-l)}
@@ -183,7 +174,7 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 /* ═══ SIDE-BY-SIDE PREVIEW ═══ */
 .compare{display:none;margin-top:.6rem}.compare.on{display:block}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;margin-top:.3rem}
-.compare-col{background:var(--bg);border:3px solid #D4E8FF;border-radius:var(--r);padding:.5rem .6rem;max-height:300px;overflow-y:auto;font-size:.74rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;box-shadow:0 4px 15px rgba(107,143,216,0.1)}
+.compare-col{background:var(--bg);border:3px solid #000;border-radius:var(--r);padding:.5rem .6rem;max-height:300px;overflow-y:auto;font-size:.74rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;box-shadow:0 3px 0 rgba(0,0,0,0.15)}
 .compare-col.src{color:var(--text3);border-left:3px solid var(--amber)}
 .compare-col.tgt{color:var(--text);border-left:3px solid var(--purple)}
 .compare-hdr{display:flex;gap:.3rem;margin-bottom:.2rem}
@@ -191,8 +182,8 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .compare-hdr .h-src{background:var(--amber-l);color:var(--amber)}
 .compare-hdr .h-tgt{background:var(--purple-l);color:var(--purple)}
 .compare-nav{display:flex;align-items:center;gap:.4rem;margin-top:.3rem;justify-content:center}
-.compare-nav button{padding:.25rem .6rem;border:2px solid #D4E8FF;background:var(--white);border-radius:var(--r);cursor:pointer;font-size:.7rem;color:var(--text2);transition:all .3s ease;box-shadow:0 3px 8px rgba(107,143,216,0.15)}
-.compare-nav button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(107,143,216,0.25)}
+.compare-nav button{padding:.25rem .6rem;border:2px solid #000;background:var(--white);border-radius:var(--r);cursor:pointer;font-size:.7rem;color:var(--text2);transition:all .15s;box-shadow:0 3px 0 rgba(0,0,0,0.2)}
+.compare-nav button:hover{transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 .compare-nav span{font-size:.68rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
 
 /* ═══ LOG ═══ */
@@ -200,33 +191,33 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 .ct:hover{color:var(--text2)}
 .ct .a{transition:transform .15s;font-size:.5rem}.ct.open .a{transform:rotate(90deg)}
 .cb{display:none}.cb.open{display:block}
-.logb{background:var(--bg);border:2px solid #D4E8FF;border-radius:var(--r);padding:.4rem .6rem;max-height:160px;overflow-y:auto;margin-top:.2rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;line-height:1.75;color:var(--text3);box-shadow:0 4px 15px rgba(107,143,216,0.08)}
+.logb{background:var(--bg);border:2px solid #000;border-radius:var(--r);padding:.4rem .6rem;max-height:160px;overflow-y:auto;margin-top:.2rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;line-height:1.75;color:var(--text3)}
 .ll{border-bottom:1px solid var(--bg2);padding:.04rem 0}.ll:last-child{border:none}
 .ll .t{color:var(--border2);margin-right:.25rem}
 .ll.e{color:var(--red)}.ll.s{color:var(--green)}
 
 /* Cost bar */
-.cost-bar{display:none;margin:.4rem 0;padding:.55rem .8rem;background:var(--purple-l);border:2px solid #D4E8FF;border-radius:var(--r);font-size:.72rem;color:var(--text2);line-height:1.5;font-weight:600;box-shadow:0 4px 15px rgba(107,143,216,0.1)}
+.cost-bar{display:none;margin:.4rem 0;padding:.55rem .8rem;background:var(--purple-l);border:2px solid #000;border-radius:var(--r);font-size:.72rem;color:var(--text2);line-height:1.5;font-weight:600}
 .cost-bar b{color:var(--text)}
 
 /* ═══ Edit Modal ═══ */
 .edt-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
 .edt-overlay.on{display:flex}
-.edt-box{background:var(--white);border-radius:var(--r3);padding:1.25rem;width:92%;max-width:600px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 15px 60px rgba(107,143,216,0.3);border:4px solid #D4E8FF}
+.edt-box{background:var(--white);border-radius:var(--r3);padding:1.25rem;width:92%;max-width:600px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 8px 0 rgba(0,0,0,0.3);border:4px solid #000}
 .edt-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
 .edt-head h3{font-size:.88rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
-.edt-close{width:28px;height:28px;border:1px solid #D4E8FF;border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--text3);transition:all .2s ease}
+.edt-close{width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--text3)}
 .edt-close:hover{color:var(--red);border-color:var(--red)}
-.edt-ta{flex:1;width:100%;padding:.6rem;border:2px solid #D4E8FF;border-radius:var(--r);font-family:'Sarabun',sans-serif;font-size:.82rem;line-height:1.8;color:var(--text);background:var(--bg);resize:none;outline:none;min-height:200px;transition:all .2s ease}
-.edt-ta:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(107,143,216,0.1)}
+.edt-ta{flex:1;width:100%;padding:.6rem;border:2px solid #000;border-radius:var(--r);font-family:'Sarabun',sans-serif;font-size:.82rem;line-height:1.8;color:var(--text);background:var(--bg);resize:none;outline:none;min-height:200px}
+.edt-ta:focus{border-color:var(--accent)}
 .edt-foot{display:flex;gap:.3rem;margin-top:.5rem;justify-content:flex-end}
 
 /* ═══ Glossary ═══ */
 .gloss{margin-bottom:.6rem}
 .gloss-pairs{max-height:120px;overflow-y:auto;margin-bottom:.3rem}
 .gloss-row{display:flex;gap:.3rem;margin-bottom:.2rem;align-items:center}
-.gloss-row input{flex:1;padding:.25rem .4rem;font-size:.72rem;border:2px solid #D4E8FF;border-radius:5px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:all .2s ease}
-.gloss-row input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(107,143,216,0.1)}
+.gloss-row input{flex:1;padding:.25rem .4rem;font-size:.72rem;border:2px solid #000;border-radius:5px;font-family:inherit;background:var(--bg);color:var(--text);outline:none}
+.gloss-row input:focus{border-color:var(--accent)}
 .gloss-row .gx{cursor:pointer;color:var(--text3);font-size:.62rem;padding:.15rem .2rem;border-radius:4px}
 .gloss-row .gx:hover{color:var(--red);background:var(--red-l)}
 .gloss-arrow{font-size:.72rem;color:var(--text3)}
@@ -234,87 +225,65 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 /* ═══ EPUB Reader ═══ */
 .reader-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center}
 .reader-overlay.on{display:flex}
-.reader-box{background:var(--white);border-radius:var(--r3);width:94%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 15px 60px rgba(107,143,216,0.3);border:4px solid #D4E8FF}
-.reader-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;border-bottom:3px solid #D4E8FF}
+.reader-box{background:var(--white);border-radius:var(--r3);width:94%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 8px 0 rgba(0,0,0,0.3);border:4px solid #000}
+.reader-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;border-bottom:3px solid #000}
 .reader-head h3{font-size:.88rem;font-weight:700}
 .reader-body{flex:1;overflow-y:auto;padding:1rem 1.25rem;font-size:.84rem;line-height:1.9;color:var(--text)}
 .reader-body h1,.reader-body h2,.reader-body h3{margin:1em 0 .4em;font-family:'Plus Jakarta Sans',sans-serif}
-.reader-nav{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem;border-top:3px solid #D4E8FF}
+.reader-nav{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem;border-top:3px solid #000}
 
 /* ═══ Stats Total ═══ */
-.ustats{font-size:.6rem;color:var(--text3);text-align:center;margin-top:.3rem;padding:.3rem;background:var(--bg);border-radius:var(--r);border:2px solid #D4E8FF;box-shadow:0 2px 8px rgba(107,143,216,0.08)}
+.ustats{font-size:.6rem;color:var(--text3);text-align:center;margin-top:.3rem;padding:.3rem;background:var(--bg);border-radius:var(--r);border:2px solid #000}
 
 /* ═══ Recovery Box ═══ */
-.recbox{display:none;margin-bottom:.6rem;padding:.85rem 1rem;background:var(--amber-l);border:3px solid #D4E8FF;border-radius:var(--r2);box-shadow:0 6px 20px rgba(245,158,11,0.2)}
+.recbox{display:none;margin-bottom:.6rem;padding:.85rem 1rem;background:var(--amber-l);border:3px solid var(--amber);border-radius:var(--r2);box-shadow:0 4px 0 rgba(217,119,6,0.3)}
 .recbox.on{display:block}
 .recbox .rec-info{font-size:.74rem;color:var(--text);line-height:1.6;margin-bottom:.5rem}
 .recbox .rec-info b{color:var(--amber)}
 .recbox .rec-btns{display:flex;gap:.3rem;flex-wrap:wrap}
-.recbox .rec-btns button{padding:.35rem .65rem;border:2px solid #D4E8FF;border-radius:var(--r);font-family:inherit;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:.25rem;box-shadow:0 3px 10px rgba(107,143,216,0.15)}
+.recbox .rec-btns button{padding:.35rem .65rem;border:2px solid #000;border-radius:var(--r);font-family:inherit;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:.25rem;box-shadow:0 3px 0 rgba(0,0,0,0.2)}
 .recbox .rb-build{background:var(--amber);color:white}
-.recbox .rb-build:hover{background:#d97706;transform:translateY(-2px);box-shadow:0 5px 15px rgba(245,158,11,0.3)}
+.recbox .rb-build:hover{background:#d97706;transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 .recbox .rb-resume{background:var(--green);color:white}
-.recbox .rb-resume:hover{background:#059669;transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,240,182,0.3)}
+.recbox .rb-resume:hover{background:#059669;transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 .recbox .rb-export{background:var(--white);color:var(--text2)}
-.recbox .rb-export:hover{background:var(--bg);transform:translateY(-2px);box-shadow:0 5px 15px rgba(107,143,216,0.2)}
+.recbox .rb-export:hover{background:var(--bg);transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 .recbox .rb-import{background:var(--white);color:var(--text2)}
-.recbox .rb-import:hover{background:var(--bg);transform:translateY(-2px);box-shadow:0 5px 15px rgba(107,143,216,0.2)}
+.recbox .rb-import:hover{background:var(--bg);transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 .recbox .rb-del{background:var(--white);border:2px solid var(--red);color:var(--red)}
-.recbox .rb-del:hover{background:var(--red-l);transform:translateY(-2px);box-shadow:0 5px 15px rgba(239,68,68,0.25)}
+.recbox .rb-del:hover{background:var(--red-l);transform:translateY(-2px);box-shadow:0 5px 0 rgba(0,0,0,0.25)}
 
 /* Stats bar */
 .statbar{display:none;margin-bottom:.6rem}.statbar.on{display:block}
 .statbar .sb-row{display:flex;gap:.4rem;flex-wrap:wrap}
-.statbar .sb-item{flex:1;min-width:80px;padding:.4rem .6rem;background:var(--white);border:2px solid #D4E8FF;border-radius:var(--r);text-align:center;box-shadow:0 4px 15px rgba(107,143,216,0.12)}
+.statbar .sb-item{flex:1;min-width:80px;padding:.4rem .6rem;background:var(--white);border:2px solid #000;border-radius:var(--r);text-align:center;box-shadow:0 3px 0 rgba(0,0,0,0.15)}
 .statbar .sb-val{font-size:.82rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text)}
 .statbar .sb-lbl{font-size:.58rem;color:var(--text3);margin-top:.05rem}
 
 /* Dark Mode Toggle */
-.dm-btn{position:fixed;top:.7rem;right:.7rem;z-index:99;width:36px;height:36px;border-radius:50%;border:3px solid #D4E8FF;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 15px rgba(107,143,216,0.2);transition:all .3s ease}
-.dm-btn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(107,143,216,0.3)}
+.dm-btn{position:fixed;top:.7rem;right:.7rem;z-index:99;width:36px;height:36px;border-radius:50%;border:3px solid #000;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 0 rgba(0,0,0,0.2);transition:all .2s}
+.dm-btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,0.3)}
 
-.foot{text-align:center;padding:1.25rem 0;margin-top:1.25rem;font-size:.62rem;color:var(--text3);border-top:3px solid #D4E8FF}
+.foot{text-align:center;padding:1.25rem 0;margin-top:1.25rem;font-size:.62rem;color:var(--text3);border-top:3px solid #000}
 .foot a{color:var(--purple);text-decoration:none}.foot a:hover{text-decoration:underline}
 
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#D4E8FF;border-radius:2px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 @media(max-width:640px){
   .hero h1{font-size:1.7rem}
   .hero{padding:2rem 1rem 1.5rem}
-  .hero-desc{font-size:.82rem}
-  .hero-avatar{width:48px;height:48px}
   .wrap{padding:1rem .75rem 2rem}
-  .card{padding:1rem}
   .g2,.g3,.dlg{grid-template-columns:1fr}
   .compare-grid{grid-template-columns:1fr}
-  .compare-hdr{flex-direction:column;gap:.3rem}
   .mflex{flex-direction:column;align-items:center}
   .brow{flex-direction:column}
-  .btn-go,.btn{width:100%;justify-content:center}
-  .tags{gap:.3rem}.tag{font-size:.56rem;padding:.2rem .5rem}
-  .nav-pill{flex-direction:column;gap:.3rem}
-  .nav-pill a{font-size:.72rem;padding:.4rem .8rem}
-  .lang-dir{flex-direction:column;gap:.4rem;align-items:stretch}
-  .lang-box{min-width:auto;width:100%}
-  .lang-swap{align-self:center;transform:rotate(90deg)}
-  .sb-row{gap:.25rem;flex-wrap:wrap}
-  .sb-item{min-width:60px;padding:.3rem .4rem}
-  .sb-val{font-size:.72rem}
-  .sb-lbl{font-size:.52rem}
-  .dm-btn{width:36px;height:36px;font-size:1rem}
-  .foot{font-size:.62rem;padding:1.5rem .75rem}
-  .dlc{padding:.6rem}
-  .rec-btns{flex-direction:column}
-  .rec-btns button{width:100%;justify-content:center}
-  .reader-box{width:95vw;height:90vh}
-  .edt-box{width:95vw}
+  .btn-go{width:100%}
 }
 </style>
 </head>
 <body>
 
 <button class="dm-btn" id="dmBtn" title="Dark/Light Mode">🌙</button>
-<button class="dm-btn" id="langBtn" title="Language" style="right:3.2rem;font-size:.7rem;font-weight:700">TH</button>
 
 <header class="hero">
   <div class="hero-in">
@@ -322,18 +291,18 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
       <img src="rainflow.png" alt="rainflowData" class="hero-avatar">
       <h1>🐱 Catto<span>Translate</span> 🌐</h1>
     </div>
-    <p class="hero-desc" id="heroDesc">AI Book Translator<br>แปลหนังสือ PDF/EPUB ด้วย AI — แปลภาษา EN↔TH พร้อมจัดรูปแบบสวย</p>
+    <p class="hero-desc">AI Book Translator<br>แปลหนังสือ PDF/EPUB ด้วย AI — แปลภาษา EN↔TH พร้อมจัดรูปแบบสวย</p>
     <div class="tags">
-      <span class="tag" id="tagMulti">🌐 EN ↔ TH</span>
-      <span class="tag" id="tagInput">📄 PDF + EPUB Input</span>
-      <span class="tag" id="tagOutput">📘 EPUB Output</span>
-      <span class="tag" id="tagClient">⚡ Client-Side</span>
+      <span class="tag">🌐 EN ↔ TH</span>
+      <span class="tag">📄 PDF + EPUB Input</span>
+      <span class="tag">📘 EPUB Output</span>
+      <span class="tag">⚡ Client-Side</span>
     </div>
     <div class="nav-pill">
       <a href="index.html">🐱 CattoEPUB</a>
       <a href="translate.html" class="active">🐱 CattoTranslate</a>
     </div>
-    <p style="font-size:.78rem;color:rgba(255,255,255,0.95);margin-top:.75rem;line-height:1.6;text-shadow:0 1px 2px rgba(0,0,0,0.2)">Web version by <strong style="color:#FFE5B4">cattoData</strong></p>
+    <p style="font-size:.68rem;color:var(--text3);margin-top:.75rem;line-height:1.5">Web version by <strong style="color:var(--purple)">rainflowData</strong></p>
   </div>
 </header>
 
@@ -341,87 +310,58 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 
   <!-- Card 1: Upload -->
   <div class="card">
-    <div class="card-h"><div class="card-n">1</div><div class="card-t" id="card1Title">อัปโหลดหนังสือ</div></div>
+    <div class="card-h"><div class="card-n">1</div><div class="card-t">อัปโหลดหนังสือ</div></div>
     <div class="up" id="dz">
       <span class="ui">📄</span>
-      <div class="ut" id="dzText"><b>คลิกเลือกไฟล์</b> หรือลากมาวาง</div>
-      <div class="uh" id="dzHint">รองรับ .pdf และ .epub</div>
+      <div class="ut"><b>คลิกเลือกไฟล์</b> หรือลากมาวาง</div>
+      <div class="uh">รองรับ .pdf และ .epub</div>
       <div class="uf" id="fn" style="display:none"></div>
       <input type="file" id="fi" accept=".pdf,.epub" hidden>
     </div>
 
     <!-- PDF page preview -->
-    <div id="pdfPv" style="display:none;margin-top:.4rem;padding:.5rem;background:var(--bg);border:2px solid #D4E8FF;border-radius:var(--r2);text-align:center;box-shadow:0 4px 15px rgba(107,143,216,0.08)">
+    <div id="pdfPv" style="display:none;margin-top:.4rem;padding:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);text-align:center">
       <canvas id="pdfPvC"></canvas>
       <div id="pdfPvI" style="font-size:.66rem;color:var(--text3);margin-top:.3rem"></div>
     </div>
 
     <!-- Source info -->
-    <div id="srcInfo" style="display:none;margin-top:.4rem;padding:.5rem .8rem;background:var(--bg);border:2px solid #D4E8FF;border-radius:var(--r);font-size:.72rem;color:var(--text2);box-shadow:0 4px 15px rgba(107,143,216,0.08)"></div>
+    <div id="srcInfo" style="display:none;margin-top:.4rem;padding:.5rem .8rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-size:.72rem;color:var(--text2)"></div>
   </div>
 
   <!-- Card 2: Translation Settings -->
   <div class="card">
-    <div class="card-h"><div class="card-n">2</div><div class="card-t" id="card2Title">ตั้งค่าการแปล</div></div>
+    <div class="card-h"><div class="card-n">2</div><div class="card-t">ตั้งค่าการแปล</div></div>
 
     <div class="f"><label class="fl" id="ak-lbl">API Key</label><input class="fi" id="ak" type="password" placeholder="Typhoon/Gemini API Key"></div>
     <div class="f"><label class="fl">AI Provider</label><select class="fi" id="prov" style="cursor:pointer">
       <option value="typhoon">🇹🇭 Typhoon V2 (Thai เก่ง)</option>
       <option value="gemini">✨ Gemini Flash (ฟรี 15 RPM)</option>
     </select></div>
-    <div id="typhoonWarn" style="display:none;margin:-.2rem 0 .4rem;padding:.4rem .7rem;background:#FFF3CD;border:1.5px solid #FFD43B;border-radius:8px;font-size:.68rem;color:#856404">⚠️ Typhoon เชี่ยวชาญภาษาไทยเป็นหลัก — สำหรับคู่ภาษาอื่นแนะนำใช้ Gemini</div>
 
     <div class="lang-dir">
-      <select class="lang-box" id="srcLang" style="cursor:pointer;border:2px solid #D4E8FF;border-radius:var(--r);padding:.5rem .6rem;font-size:.85rem;font-weight:700;font-family:inherit;background:#fff;color:var(--text);outline:none;min-width:120px;text-align:center;box-shadow:0 3px 8px rgba(107,143,216,0.15)">
-        <option value="en">🇬🇧 English</option>
-        <option value="th">🇹🇭 ไทย</option>
-        <option value="zh">🇨🇳 中文</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ar">🇸🇦 العربية</option>
-        <option value="vi">🇻🇳 Tiếng Việt</option>
-        <option value="id">🇮🇩 Bahasa Indonesia</option>
-      </select>
+      <div class="lang-box" id="srcLang">🇬🇧 English</div>
       <button class="lang-swap" id="swapBtn" title="สลับภาษา">⇆</button>
-      <select class="lang-box" id="tgtLang" style="cursor:pointer;border:2px solid #D4E8FF;border-radius:var(--r);padding:.5rem .6rem;font-size:.85rem;font-weight:700;font-family:inherit;background:#fff;color:var(--text);outline:none;min-width:120px;text-align:center;box-shadow:0 3px 8px rgba(107,143,216,0.15)">
-        <option value="th" selected>🇹🇭 ไทย</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 中文</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ar">🇸🇦 العربية</option>
-        <option value="vi">🇻🇳 Tiếng Việt</option>
-        <option value="id">🇮🇩 Bahasa Indonesia</option>
-      </select>
+      <div class="lang-box" id="tgtLang">🇹🇭 ไทย</div>
     </div>
 
-    <div class="f"><label class="fl" id="styleLabel">สไตล์การแปล</label><select class="fi" id="style" style="cursor:pointer">
-      <option value="natural" id="optNatural">🎯 แปลธรรมชาติ — อ่านง่าย ลื่นไหล</option>
-      <option value="formal" id="optFormal">📚 แปลเป็นทางการ — คงน้ำเสียงต้นฉบับ</option>
-      <option value="creative" id="optCreative">✨ แปลสร้างสรรค์ — เน้นความสวยงามของภาษา</option>
-      <option value="literal" id="optLiteral">📝 แปลตรงตัว — ใกล้เคียงต้นฉบับที่สุด</option>
+    <div class="f"><label class="fl">สไตล์การแปล</label><select class="fi" id="style" style="cursor:pointer">
+      <option value="natural">🎯 แปลธรรมชาติ — อ่านง่าย ลื่นไหล</option>
+      <option value="formal">📚 แปลเป็นทางการ — คงน้ำเสียงต้นฉบับ</option>
+      <option value="creative">✨ แปลสร้างสรรค์ — เน้นความสวยงามของภาษา</option>
+      <option value="literal">📝 แปลตรงตัว — ใกล้เคียงต้นฉบับที่สุด</option>
     </select></div>
 
     <div class="g2">
-      <div class="f"><label class="fl" id="spLabel">เริ่มหน้า</label><input class="fi" id="sp" type="number" min="1" value="1" placeholder="1"></div>
-      <div class="f"><label class="fl" id="epLabel">สิ้นสุดหน้า</label><input class="fi" id="ep" type="number" min="0" value="0" placeholder="0 = ทั้งหมด"></div>
+      <div class="f"><label class="fl">เริ่มหน้า</label><input class="fi" id="sp" type="number" min="1" value="1" placeholder="1"></div>
+      <div class="f"><label class="fl">สิ้นสุดหน้า</label><input class="fi" id="ep" type="number" min="0" value="0" placeholder="0 = ทั้งหมด"></div>
     </div>
 
-    <div class="f"><label class="fl" id="promptLabel">คำสั่งเพิ่มเติม (ไม่บังคับ)</label><textarea class="fi" id="customPrompt" rows="2" placeholder="เช่น: แปลชื่อตัวละครเป็นไทย, คงศัพท์เทคนิคเป็นภาษาอังกฤษ" id="promptPh"></textarea></div>
+    <div class="f"><label class="fl">คำสั่งเพิ่มเติม (ไม่บังคับ)</label><textarea class="fi" id="customPrompt" rows="2" placeholder="เช่น: แปลชื่อตัวละครเป็นไทย, คงศัพท์เทคนิคเป็นภาษาอังกฤษ"></textarea></div>
 
     <!-- Glossary -->
     <div class="gloss" id="glossSec">
-      <label class="fl" id="glossLabel">📖 คลังศัพท์ (Glossary)</label>
+      <label class="fl">📖 คลังศัพท์ (Glossary)</label>
       <div class="gloss-pairs" id="glossPairs"></div>
       <button class="btn btn-o" id="bAddGloss" style="font-size:.66rem">+ เพิ่มคำศัพท์</button>
     </div>
@@ -429,9 +369,9 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 
   <!-- Card 3: Book Info -->
   <div class="card">
-    <div class="card-h"><div class="card-n">3</div><div class="card-t" id="card3Title">ข้อมูลหนังสือ</div></div>
+    <div class="card-h"><div class="card-n">3</div><div class="card-t">ข้อมูลหนังสือ</div></div>
     <div class="mflex">
-      <div class="cov" id="cz" title="เลือกปกหนังสือ"><div class="cov-ph"><span>🖼️</span><span id="covText">ปก</span></div><input type="file" id="ci" accept="image/*" hidden></div>
+      <div class="cov" id="cz" title="เลือกปกหนังสือ"><div class="cov-ph"><span>🖼️</span>ปก</div><input type="file" id="ci" accept="image/*" hidden></div>
       <div class="mfields">
         <div class="f"><label class="fl">Title</label><input class="fi" id="mt" placeholder="ชื่อหนังสือ"></div>
         <div class="f"><label class="fl">Author</label><input class="fi" id="ma" placeholder="ผู้แต่ง"></div>
@@ -491,10 +431,10 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
   <!-- Results -->
   <div class="res" id="res">
     <div class="card">
-      <div class="card-h"><div class="card-n">✓</div><div class="card-t" id="dlTitle">ดาวน์โหลด</div></div>
+      <div class="card-h"><div class="card-n">✓</div><div class="card-t">ดาวน์โหลด</div></div>
       <div class="dlg">
-        <a class="dlc" id="de" href="#" download><div class="dli epub">📗</div><div><div class="dln" id="dlEpub">EPUB (แปลแล้ว)</div><div class="dls" id="es">—</div></div></a>
-        <a class="dlc" id="dt" href="#" download><div class="dli txt">📝</div><div><div class="dln" id="dlTxt">TXT (ข้อความ)</div><div class="dls" id="ts">—</div></div></a>
+        <a class="dlc" id="de" href="#" download><div class="dli epub">📗</div><div><div class="dln">EPUB (แปลแล้ว)</div><div class="dls" id="es">—</div></div></a>
+        <a class="dlc" id="dt" href="#" download><div class="dli txt">📝</div><div><div class="dln">TXT (ข้อความ)</div><div class="dls" id="ts">—</div></div></a>
       </div>
     </div>
   </div>
@@ -502,7 +442,7 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
   <!-- TOC -->
   <div class="toc" id="tocsec">
     <div class="card">
-      <div class="card-h"><div class="card-n">📑</div><div class="card-t" id="tocTitle">สารบัญ</div></div>
+      <div class="card-h"><div class="card-n">📑</div><div class="card-t">สารบัญ</div></div>
       <ul class="tocl" id="tocl"></ul>
       <div class="toca"><button class="btn btn-o" id="bac">+ เพิ่มบท</button><button class="btn btn-o" id="brb">🔄 สร้าง EPUB ใหม่</button></div>
     </div>
@@ -515,20 +455,20 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
 
   <!-- Side-by-side Preview -->
   <div class="compare" id="compareSec">
-    <div class="ct" id="compareToggle"><span class="a">▶</span> <span id="compareText">เปรียบเทียบต้นฉบับ / แปลแล้ว</span></div>
+    <div class="ct" id="compareToggle"><span class="a">▶</span> เปรียบเทียบต้นฉบับ / แปลแล้ว</div>
     <div class="cb" id="compareBody">
       <div class="compare-hdr">
-        <span class="h-src" id="cmpSrcH">ต้นฉบับ</span>
-        <span class="h-tgt" id="cmpTgtH">แปลแล้ว</span>
+        <span class="h-src">ต้นฉบับ</span>
+        <span class="h-tgt">แปลแล้ว</span>
       </div>
       <div class="compare-grid">
         <div class="compare-col src" id="cmpSrc"></div>
         <div class="compare-col tgt" id="cmpTgt"></div>
       </div>
       <div class="compare-nav">
-        <button id="cmpPrev">◀ <span id="cmpPrevT">ก่อนหน้า</span></button>
+        <button id="cmpPrev">◀ ก่อนหน้า</button>
         <span id="cmpPage">1 / 1</span>
-        <button id="cmpNext"><span id="cmpNextT">ถัดไป</span> ▶</button>
+        <button id="cmpNext">ถัดไป ▶</button>
       </div>
     </div>
   </div>
@@ -568,11 +508,11 @@ textarea.fi{resize:vertical;min-height:52px;line-height:1.5}
   </div>
 
   <div class="foot">
-    <strong>CattoTranslate</strong> by <strong style="color:var(--blue)">cattoData</strong><br>
+    <strong>CattoTranslate</strong> by <strong style="color:var(--purple)">rainflowData</strong><br>
     Powered by <a href="https://opentyphoon.ai" target="_blank">Typhoon</a> / <a href="https://ai.google.dev" target="_blank">Gemini</a> · <a href="https://mozilla.github.io/pdf.js/" target="_blank">PDF.js</a> · <a href="https://stuk.github.io/jszip/" target="_blank">JSZip</a><br>
-    <span id="footPrivacy" style="font-size:.58rem;color:var(--text3)">ทำงานในเบราว์เซอร์ · ข้อมูลส่งเฉพาะ AI API · ไม่เก็บข้อมูลใดๆ</span>
+    <span style="font-size:.58rem;color:var(--text3)">ทำงานในเบราว์เซอร์ · ข้อมูลส่งเฉพาะ AI API · ไม่เก็บข้อมูลใดๆ</span>
     <div style="margin-top:.6rem;display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap">
-      <a href="https://github.com/RainflowData/PDF-EPUB-Converter-Thai" target="_blank" style="display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .7rem;background:var(--bg);border:2px solid #D4E8FF;border-radius:100px;text-decoration:none;color:var(--text2);font-size:.64rem;font-weight:600;transition:all .3s ease;box-shadow:0 2px 8px rgba(107,143,216,0.1)" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(107,143,216,0.2)'" onmouseout="this.style.borderColor='';this.style.color='';this.style.transform='';this.style.boxShadow=''">
+      <a href="https://github.com/RainflowData/PDF-EPUB-Converter-Thai" target="_blank" style="display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .7rem;background:var(--bg);border:1px solid var(--border);border-radius:100px;text-decoration:none;color:var(--text2);font-size:.64rem;font-weight:600;transition:all .15s" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='';this.style.color=''">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
       </a>
@@ -586,121 +526,13 @@ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/p
 const $=id=>document.getElementById(id);
 let pdfDoc=null,srcFile=null,srcType='',srcPages=[],translatedPages=[],isCancelled=false,isProc=false,coverUrl,coverMime;
 var tokenUsage={prompt:0,completion:0,total:0},stats={total:0,done:0,skipped:0};
-var _dir='en2th'; /* legacy compat — now derived from dropdowns */
+var _dir='en2th'; /* en2th or th2en */
 var startTime=0;
-var LANG_NAMES={en:'English',th:'Thai',zh:'Chinese',ja:'Japanese',ko:'Korean',fr:'French',de:'German',es:'Spanish',pt:'Portuguese',ru:'Russian',ar:'Arabic',vi:'Vietnamese',id:'Indonesian'};
-var LANG_NATIVE={en:'English',th:'ภาษาไทย',zh:'中文',ja:'日本語',ko:'한국어',fr:'Français',de:'Deutsch',es:'Español',pt:'Português',ru:'Русский',ar:'العربية',vi:'Tiếng Việt',id:'Bahasa Indonesia'};
-var LANG_CODES={en:'en',th:'th',zh:'zh',ja:'ja',ko:'ko',fr:'fr',de:'de',es:'es',pt:'pt',ru:'ru',ar:'ar',vi:'vi',id:'id'};
-function getSrcLang(){return $('srcLang').value}
-function getTgtLang(){return $('tgtLang').value}
-function getDirLabel(){return LANG_NAMES[getSrcLang()]+' → '+LANG_NAMES[getTgtLang()]}
-function getTgtSuffix(){return ' ('+getTgtLang().toUpperCase()+')'}
 
 /* ═══ Dark Mode ═══ */
 var _dark=localStorage.getItem('bepub_dark')==='1';
 function applyDark(){document.documentElement.setAttribute('data-theme',_dark?'dark':'');$('dmBtn').textContent=_dark?'☀️':'🌙';localStorage.setItem('bepub_dark',_dark?'1':'0')}
 $('dmBtn').onclick=function(){_dark=!_dark;applyDark()};applyDark();
-
-/* ═══ i18n ═══ */
-var _lang=localStorage.getItem('bepub_lang')||'th';
-var TT={
-  th:{
-    heroDesc:'AI Book Translator<br>แปลหนังสือ PDF/EPUB ด้วย AI — รองรับหลายภาษา พร้อมจัดรูปแบบสวย',
-    tagMulti:'🌐 Multi-Language',tagInput:'📄 PDF + EPUB Input',tagOutput:'📘 EPUB Output',tagClient:'⚡ Client-Side',
-    card1:'อัปโหลดหนังสือ',dzText:'<b>คลิกเลือกไฟล์</b> หรือลากมาวาง',dzHint:'รองรับ .pdf และ .epub',
-    card2:'ตั้งค่าการแปล',styleLabel:'สไตล์การแปล',
-    optNatural:'🎯 แปลธรรมชาติ — อ่านง่าย ลื่นไหล',optFormal:'📚 แปลเป็นทางการ — คงน้ำเสียงต้นฉบับ',
-    optCreative:'✨ แปลสร้างสรรค์ — เน้นความสวยงามของภาษา',optLiteral:'📝 แปลตรงตัว — ใกล้เคียงต้นฉบับที่สุด',
-    spLabel:'เริ่มหน้า',epLabel:'สิ้นสุดหน้า',epPh:'0 = ทั้งหมด',
-    promptLabel:'คำสั่งเพิ่มเติม (ไม่บังคับ)',promptPh:'เช่น: แปลชื่อตัวละครเป็นไทย, คงศัพท์เทคนิคเป็นภาษาอังกฤษ',
-    glossLabel:'📖 คลังศัพท์ (Glossary)',addGloss:'+ เพิ่มคำศัพท์',
-    card3:'ข้อมูลหนังสือ',covText:'ปก',mtPh:'ชื่อหนังสือ',maPh:'ผู้แต่ง',mpPh:'สำนักพิมพ์',mdPh:'คำอธิบาย (ไม่บังคับ)',
-    btnGo:'🌐 เริ่มแปล',btnStop:'■ หยุด',
-    dlTitle:'ดาวน์โหลด',dlEpub:'EPUB (แปลแล้ว)',dlTxt:'TXT (ข้อความ)',
-    tocTitle:'สารบัญ',addChap:'+ เพิ่มบท',rebuildEpub:'🔄 สร้าง EPUB ใหม่',
-    readEpub:'📖 อ่าน EPUB ในเบราว์เซอร์',
-    compareText:'เปรียบเทียบต้นฉบับ / แปลแล้ว',cmpSrcH:'ต้นฉบับ',cmpTgtH:'แปลแล้ว',
-    cmpPrev:'ก่อนหน้า',cmpNext:'ถัดไป',
-    rbBuild:'📥 กู้คืน → สร้าง EPUB',rbResume:'▶️ แปลต่อ',rbExport:'💾 Export JSON',rbImport:'📂 Import JSON',rbDel:'🗑️ ลบทิ้ง',
-    footPrivacy:'ทำงานในเบราว์เซอร์ · ข้อมูลส่งเฉพาะ AI API · ไม่เก็บข้อมูลใดๆ',
-    typhoonWarn:'⚠️ Typhoon เชี่ยวชาญภาษาไทยเป็นหลัก — สำหรับคู่ภาษาอื่นแนะนำใช้ Gemini',
-    rdPrev:'◀ ก่อนหน้า',rdNext:'ถัดไป ▶',rdTitle:'📖 อ่าน EPUB',
-    edtTitle:'✏️ แก้ไขหน้า',edtCancel:'ยกเลิก',edtSave:'💾 บันทึก'
-  },
-  en:{
-    heroDesc:'AI Book Translator<br>Translate PDF/EPUB books with AI — Multi-language support with beautiful formatting',
-    tagMulti:'🌐 Multi-Language',tagInput:'📄 PDF + EPUB Input',tagOutput:'📘 EPUB Output',tagClient:'⚡ Client-Side',
-    card1:'Upload Book',dzText:'<b>Click to choose file</b> or drag & drop',dzHint:'Supports .pdf and .epub',
-    card2:'Translation Settings',styleLabel:'Translation Style',
-    optNatural:'🎯 Natural — Easy to read, fluent',optFormal:'📚 Formal — Preserve original tone',
-    optCreative:'✨ Creative — Emphasize language beauty',optLiteral:'📝 Literal — Closest to original',
-    spLabel:'Start Page',epLabel:'End Page',epPh:'0 = All',
-    promptLabel:'Custom Instructions (optional)',promptPh:'e.g.: Translate character names, keep technical terms in English',
-    glossLabel:'📖 Glossary',addGloss:'+ Add Term',
-    card3:'Book Info',covText:'Cover',mtPh:'Book title',maPh:'Author',mpPh:'Publisher',mdPh:'Description (optional)',
-    btnGo:'🌐 Start Translating',btnStop:'■ Stop',
-    dlTitle:'Download',dlEpub:'EPUB (Translated)',dlTxt:'TXT (Text)',
-    tocTitle:'Table of Contents',addChap:'+ Add Chapter',rebuildEpub:'🔄 Rebuild EPUB',
-    readEpub:'📖 Read EPUB in Browser',
-    compareText:'Compare Original / Translated',cmpSrcH:'Original',cmpTgtH:'Translated',
-    cmpPrev:'Previous',cmpNext:'Next',
-    rbBuild:'📥 Recover → Build EPUB',rbResume:'▶️ Resume',rbExport:'💾 Export JSON',rbImport:'📂 Import JSON',rbDel:'🗑️ Delete',
-    footPrivacy:'Runs in browser · Data sent only to AI API · No data stored',
-    typhoonWarn:'⚠️ Typhoon specializes in Thai — For other language pairs, use Gemini',
-    rdPrev:'◀ Previous',rdNext:'Next ▶',rdTitle:'📖 Read EPUB',
-    edtTitle:'✏️ Edit Page',edtCancel:'Cancel',edtSave:'💾 Save'
-  }
-};
-function applyTrLang(){
-  var t=TT[_lang]||TT.th;
-  $('langBtn').textContent=_lang.toUpperCase();
-  if($('heroDesc'))$('heroDesc').innerHTML=t.heroDesc;
-  if($('tagMulti'))$('tagMulti').textContent=t.tagMulti;
-  if($('tagInput'))$('tagInput').textContent=t.tagInput;
-  if($('tagOutput'))$('tagOutput').textContent=t.tagOutput;
-  if($('tagClient'))$('tagClient').textContent=t.tagClient;
-  if($('card1Title'))$('card1Title').textContent=t.card1;
-  if($('dzText'))$('dzText').innerHTML=t.dzText;
-  if($('dzHint'))$('dzHint').textContent=t.dzHint;
-  if($('card2Title'))$('card2Title').textContent=t.card2;
-  if($('styleLabel'))$('styleLabel').textContent=t.styleLabel;
-  if($('optNatural'))$('optNatural').textContent=t.optNatural;
-  if($('optFormal'))$('optFormal').textContent=t.optFormal;
-  if($('optCreative'))$('optCreative').textContent=t.optCreative;
-  if($('optLiteral'))$('optLiteral').textContent=t.optLiteral;
-  if($('spLabel'))$('spLabel').textContent=t.spLabel;
-  if($('epLabel'))$('epLabel').textContent=t.epLabel;
-  $('ep').placeholder=t.epPh;
-  if($('promptLabel'))$('promptLabel').textContent=t.promptLabel;
-  $('customPrompt').placeholder=t.promptPh;
-  if($('glossLabel'))$('glossLabel').textContent=t.glossLabel;
-  $('bAddGloss').textContent=t.addGloss;
-  if($('card3Title'))$('card3Title').textContent=t.card3;
-  if($('covText'))$('covText').textContent=t.covText;
-  $('mt').placeholder=t.mtPh;$('ma').placeholder=t.maPh;$('mp').placeholder=t.mpPh;$('md').placeholder=t.mdPh;
-  $('bgo').textContent=t.btnGo;$('bst').textContent=t.btnStop;
-  if($('dlTitle'))$('dlTitle').textContent=t.dlTitle;
-  if($('dlEpub'))$('dlEpub').textContent=t.dlEpub;
-  if($('dlTxt'))$('dlTxt').textContent=t.dlTxt;
-  if($('tocTitle'))$('tocTitle').textContent=t.tocTitle;
-  $('bac').textContent=t.addChap;$('brb').textContent=t.rebuildEpub;
-  $('bReader').textContent=t.readEpub;
-  if($('compareText'))$('compareText').textContent=t.compareText;
-  if($('cmpSrcH'))$('cmpSrcH').textContent=t.cmpSrcH;
-  if($('cmpTgtH'))$('cmpTgtH').textContent=t.cmpTgtH;
-  if($('cmpPrevT'))$('cmpPrevT').textContent=t.cmpPrev;
-  if($('cmpNextT'))$('cmpNextT').textContent=t.cmpNext;
-  $('rbBuild').textContent=t.rbBuild;$('rbResume').textContent=t.rbResume;
-  $('rbExport').textContent=t.rbExport;$('rbImport').textContent=t.rbImport;$('rbDel').textContent=t.rbDel;
-  if($('footPrivacy'))$('footPrivacy').textContent=t.footPrivacy;
-  if($('typhoonWarn'))$('typhoonWarn').textContent=t.typhoonWarn;
-  if($('rdPrev'))$('rdPrev').textContent=t.rdPrev;
-  if($('rdNext'))$('rdNext').textContent=t.rdNext;
-  if($('edtCancel'))$('edtCancel').textContent=t.edtCancel;
-  if($('edtSave'))$('edtSave').textContent=t.edtSave;
-}
-$('langBtn').onclick=function(){_lang=_lang==='th'?'en':'th';localStorage.setItem('bepub_lang',_lang);applyTrLang()};
-applyTrLang();
 
 /* ═══ Remember API Key ═══ */
 var savedKey=localStorage.getItem('bepub_apikey')||'';
@@ -712,25 +544,14 @@ function cleanKey(k){return k.replace(/[^\x20-\x7E]/g,'').trim()}
 function ck(){$('bgo').disabled=!(srcPages.length&&$('ak').value.trim());updateCost()}
 $('ak').oninput=function(){this.value=cleanKey(this.value);ck();localStorage.setItem('bepub_apikey',this.value)};
 $('ak').onpaste=function(){var self=this;setTimeout(function(){self.value=cleanKey(self.value);ck();localStorage.setItem('bepub_apikey',self.value)},0)};
-$('prov').onchange=function(){var v=this.value;localStorage.setItem('bepub_prov',v);if(v==='gemini'){$('ak-lbl').textContent='Gemini API Key';$('ak').placeholder='AIzaSy...'}else{$('ak-lbl').textContent='Typhoon API Key';$('ak').placeholder='typhoon-xxxxxxxx'}ck();updateDir()};
+$('prov').onchange=function(){var v=this.value;localStorage.setItem('bepub_prov',v);if(v==='gemini'){$('ak-lbl').textContent='Gemini API Key';$('ak').placeholder='AIzaSy...'}else{$('ak-lbl').textContent='Typhoon API Key';$('ak').placeholder='typhoon-xxxxxxxx'}ck()};
 
 /* ═══ Language Direction ═══ */
 function updateDir(){
-  _dir=getSrcLang()+'2'+getTgtLang();
-  $('ml').value=getTgtLang();
-  /* Typhoon warning for non-Thai pairs */
-  var prov=$('prov').value;
-  var hasThai=getSrcLang()==='th'||getTgtLang()==='th';
-  var warn=$('typhoonWarn');
-  if(warn){warn.style.display=(prov==='typhoon'&&!hasThai)?'block':'none'}
+  if(_dir==='en2th'){$('srcLang').textContent='🇬🇧 English';$('tgtLang').textContent='🇹🇭 ไทย';$('ml').value='th'}
+  else{$('srcLang').textContent='🇹🇭 ไทย';$('tgtLang').textContent='🇬🇧 English';$('ml').value='en'}
 }
-$('swapBtn').onclick=function(){
-  var s=$('srcLang').value,t=$('tgtLang').value;
-  $('srcLang').value=t;$('tgtLang').value=s;
-  updateDir();updateCost();
-};
-$('srcLang').onchange=function(){if($('srcLang').value===$('tgtLang').value){$('tgtLang').value=$('srcLang').value==='en'?'th':'en'}updateDir();updateCost()};
-$('tgtLang').onchange=function(){if($('tgtLang').value===$('srcLang').value){$('srcLang').value=$('tgtLang').value==='en'?'th':'en'}updateDir();updateCost()};
+$('swapBtn').onclick=function(){_dir=_dir==='en2th'?'th2en':'en2th';updateDir();updateCost()};
 updateDir();
 
 /* ═══ Collapsibles ═══ */
@@ -866,7 +687,6 @@ var LS_TR_KEY='bepub_translate_progress';
 function saveTrProgress(){
   try{localStorage.setItem(LS_TR_KEY,JSON.stringify({
     v:1,srcPages:srcPages,translatedPages:translatedPages,dir:_dir,
-    srcLangCode:getSrcLang(),tgtLangCode:getTgtLang(),
     stats:stats,tokenUsage:tokenUsage,chaps:chaps,
     meta:{t:$('mt').value,a:$('ma').value,p:$('mp').value,l:$('ml').value,d:$('md').value},
     style:$('style').value,prov:$('prov').value,
@@ -946,7 +766,7 @@ $('brb').onclick=async function(){
   log('🔄 Rebuild...');
   try{
     var eb=await buildEpub(translatedPages,chaps);
-    var base=($('mt').value.trim()||'translated')+getTgtSuffix();
+    var base=($('mt').value.trim()||'translated')+(_dir==='en2th'?' (TH)':' (EN)');
     $('de').href=URL.createObjectURL(eb);$('de').download=base+'.epub';$('es').textContent=fs(eb.size);
     setSt('✅ EPUB ใหม่พร้อมแล้ว','ok');log('✅ Rebuild done','success');
   }catch(e){setSt('❌ '+e.message,'err');log(e.message,'error')}
@@ -955,9 +775,9 @@ $('brb').onclick=async function(){
 /* ═══ AI Translation ═══ */
 async function translateChunk(text,key,style,customPrompt,prevContext){
   var provider=$('prov').value;
-  var srcL=LANG_NAMES[getSrcLang()]||'English';
-  var tgtL=LANG_NAMES[getTgtLang()]||'Thai';
-  var tgtLangName=LANG_NATIVE[getTgtLang()]||tgtL;
+  var srcL=_dir==='en2th'?'English':'Thai';
+  var tgtL=_dir==='en2th'?'Thai':'English';
+  var tgtLangName=_dir==='en2th'?'ภาษาไทย':'English';
   
   var styles={
     natural:'แปลอย่างธรรมชาติ ลื่นไหล อ่านสนุก เหมือนนักเขียนไทยเขียนเอง ใช้สำนวนที่คนไทยจริงๆ ใช้กัน ไม่แข็งทื่อ ไม่เป็นภาษาแปล ปรับสำนวน idiom ให้เข้ากับ'+tgtLangName,
@@ -1045,7 +865,7 @@ async function startTranslate(){
   $('bgo').disabled=true;$('bst').disabled=false;
   $('res').classList.remove('on');$('compareSec').classList.remove('on');
   $('prg').classList.add('on','run');$('statbar').classList.add('on');
-  var dirLabel=getDirLabel();
+  var dirLabel=_dir==='en2th'?'EN → TH':'TH → EN';
   setSt('🌐 กำลังแปล '+dirLabel+' · '+pages.length+' หน้า','info');
   log('🌐 เริ่มแปล: '+dirLabel+' · '+pages.length+' หน้า · สไตล์: '+style);
   updateStats();
@@ -1145,7 +965,7 @@ async function startTranslate(){
       rtoc();
       var epubBlob=await buildEpub(translatedPages,chaps);
       var txtBlob=new Blob(['\ufeff'+full],{type:'text/plain;charset=utf-8'});
-      var base=($('mt').value.trim()||'translated')+getTgtSuffix();
+      var base=($('mt').value.trim()||'translated')+(_dir==='en2th'?' (TH)':' (EN)');
       $('de').href=URL.createObjectURL(epubBlob);$('de').download=base+'.epub';$('es').textContent=fs(epubBlob.size);
       $('dt').href=URL.createObjectURL(txtBlob);$('dt').download=base+'.txt';$('ts').textContent=fs(txtBlob.size);
       $('res').classList.add('on');
@@ -1270,7 +1090,7 @@ async function buildEpub(pages,ch){
   var good=saved.translatedPages.filter(function(s){return s&&s.trim()}).length;
   var total=saved.srcPages?saved.srcPages.length:0;
   var timeAgo=age<60000?'เมื่อกี้':age<3600000?Math.round(age/60000)+' นาทีที่แล้ว':Math.round(age/3600000)+' ชม.ที่แล้ว';
-  var dirLabel=saved.srcLangCode&&saved.tgtLangCode?(saved.srcLangCode.toUpperCase()+'→'+saved.tgtLangCode.toUpperCase()):(saved.dir==='en2th'?'EN→TH':'TH→EN');
+  var dirLabel=saved.dir==='en2th'?'EN→TH':'TH→EN';
   $('recInfo').innerHTML='💾 พบงานแปลค้าง: <b>'+dirLabel+'</b> — ได้ '+good+'/'+total+' หน้า ('+timeAgo+')';
   $('recBox').classList.add('on');
   /* Show resume button if not all pages done */
@@ -1293,16 +1113,13 @@ $('rbBuild').onclick=async function(){
   try{
     translatedPages=saved.translatedPages;
     srcPages=saved.srcPages||[];
-    _dir=saved.dir||'en2th';
-    if(saved.srcLangCode)$('srcLang').value=saved.srcLangCode;
-    if(saved.tgtLangCode)$('tgtLang').value=saved.tgtLangCode;
-    updateDir();
+    _dir=saved.dir||'en2th';updateDir();
     stats=saved.stats||{total:translatedPages.length,done:translatedPages.filter(function(s){return s&&s.trim()}).length,skipped:0};
     tokenUsage=saved.tokenUsage||{prompt:0,completion:0,total:0};
     chaps=saved.chaps||detectChapters(translatedPages);
     rtoc();
     var title=$('mt').value.trim()||'translated';
-    var base=title+getTgtSuffix();
+    var base=title+(_dir==='en2th'?' (TH)':' (EN)');
     setSt('กำลังสร้าง EPUB...','info');
     var eb=await buildEpub(translatedPages,chaps);
     var full=translatedPages.filter(function(s){return s&&s.trim()}).join('\n\n--- Page Break ---\n\n');
@@ -1324,10 +1141,7 @@ $('rbResume').onclick=function(){
   /* Restore all state so user can hit "เริ่มแปล" */
   srcPages=saved.srcPages;
   translatedPages=saved.translatedPages||[];
-  _dir=saved.dir||'en2th';
-  if(saved.srcLangCode)$('srcLang').value=saved.srcLangCode;
-  if(saved.tgtLangCode)$('tgtLang').value=saved.tgtLangCode;
-  updateDir();
+  _dir=saved.dir||'en2th';updateDir();
   stats=saved.stats||{total:srcPages.length,done:translatedPages.length,skipped:0};
   tokenUsage=saved.tokenUsage||{prompt:0,completion:0,total:0};
   if(saved.style)$('style').value=saved.style;
@@ -1371,10 +1185,7 @@ $('rbFi').onchange=function(){
       var good=data.translatedPages.filter(function(s){return s&&s.trim()}).length;
       srcPages=data.srcPages||[];
       translatedPages=data.translatedPages;
-      _dir=data.dir||'en2th';
-      if(data.srcLangCode)$('srcLang').value=data.srcLangCode;
-      if(data.tgtLangCode)$('tgtLang').value=data.tgtLangCode;
-      updateDir();
+      _dir=data.dir||'en2th';updateDir();
       stats=data.stats||{total:translatedPages.length,done:good,skipped:0};
       tokenUsage=data.tokenUsage||{prompt:0,completion:0,total:0};
       if(data.meta){if(data.meta.t)$('mt').value=data.meta.t;if(data.meta.a)$('ma').value=data.meta.a;if(data.meta.p)$('mp').value=data.meta.p;if(data.meta.l)$('ml').value=data.meta.l;if(data.meta.d)$('md').value=data.meta.d}
