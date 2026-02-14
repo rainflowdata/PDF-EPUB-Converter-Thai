@@ -4,8 +4,8 @@
   "description": "แปลง PDF เป็น EPUB ด้วย AI OCR + แปลหนังสือ EN↔TH",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f0f4fa",
-  "theme_color": "#6B9FD8",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e293b",
   "orientation": "any",
   "icons": [
     {
